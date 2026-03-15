@@ -1,0 +1,147 @@
+﻿<Window x:Class="AnimeLibrary.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AnimeLibrary"
+        xmlns:uc="clr-namespace:AnimeLibrary.View.UserControls"
+        mc:Ignorable="d" WindowStyle="None"
+        Title="Anime Library"
+        MinHeight="800" MinWidth="1325"
+        Height="800" Width="1325">
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="0" CornerRadius="0" CaptionHeight="0"/>
+    </WindowChrome.WindowChrome>
+
+    <!-- Styles -->
+    <Window.Resources>
+        <Style x:Key="ButtonHover" TargetType="Button">
+            <Setter Property="Foreground" Value="#CED5D8"/>
+            <Setter Property="Tag" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="bg" Background="{TemplateBinding Background}"
+                            CornerRadius="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}">
+                            <ContentPresenter
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            TextElement.Foreground="{TemplateBinding Foreground}"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bg" Property="Background"
+                                Value="#05FFFFFF"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
+    <!-- Main -->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!-- Title Bar -->
+        <Grid Grid.Row="0" MouseDown="Grid_MouseDown">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#043639" Offset="0.00"/>
+                    <GradientStop Color="#0D1E3C" Offset="0.20"/>
+                    <GradientStop Color="#1A033F" Offset="0.40"/>
+                    <GradientStop Color="#2F0534" Offset="0.59"/>
+                    <GradientStop Color="#2D1749" Offset="0.79"/>
+                    <GradientStop Color="#152345" Offset="1.00"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="83.713*"/>
+                <ColumnDefinition Width="2.643*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="7.93*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="🌸 Anime Library 📚" VerticalAlignment="Center" 
+               HorizontalAlignment="Center" Grid.ColumnSpan="3"
+               FontSize="14" Foreground="White"/>
+
+            <!-- Divider -->
+            <Border Grid.Column="2" Width="1" Height="15" Background="Gray"/>
+
+            <!--> Settings Button -->
+            <Button Grid.Column="1" x:Name="btnSettings" Content="🛠" Width="35" Height="35"
+                    BorderBrush="Transparent" Background="Transparent"
+                    FontSize="12"
+                    Click="btnSettings_Click" FontFamily="Segoe UI Emoji"
+                    Style="{StaticResource ButtonHover}" Tag="0"/>
+
+            <!--> Window Control Buttons -->
+            <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" >
+                <Button x:Name="btnMinW" Content="&#xE921;" Width="35" Height="35"
+                        BorderBrush="Transparent" Background="Transparent"
+                        FontSize="10"
+                        Click="btnMinW_Click" FontFamily="Segoe MDL2 Assets"
+                        Style="{StaticResource ButtonHover}" Tag="0" />
+                <Button x:Name="btnMaxW" Content="&#xE922;" Width="35" Height="35"
+                        BorderBrush="Transparent" Background="Transparent"
+                        FontSize="10"
+                        Click="btnMaxW_Click" FontFamily="Segoe MDL2 Assets"
+                        Style="{StaticResource ButtonHover}" Tag="0"/>
+                <Button x:Name="btnCloseW" Content="&#xE8BB;" Width="35" Height="35"
+                        BorderBrush="Transparent" Background="Transparent"
+                        FontSize="10"
+                        Click="btnCloseW_Click" FontFamily="Segoe MDL2 Assets"
+                        Style="{StaticResource ButtonHover}" Tag="0"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Divider -->
+        <Border Grid.Row="1" Height="1">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#0B4A4E" Offset="0.00"/>
+                    <GradientStop Color="#173057" Offset="0.20"/>
+                    <GradientStop Color="#2A0A5C" Offset="0.40"/>
+                    <GradientStop Color="#47104E" Offset="0.59"/>
+                    <GradientStop Color="#4A2A66" Offset="0.79"/>
+                    <GradientStop Color="#243564" Offset="1.00"/>
+                </LinearGradientBrush>
+            </Border.Background>
+        </Border>
+
+        <!--> Content -->
+        <Grid Grid.Row="2">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#02282B" Offset="0.00"/>
+                    <GradientStop Color="#09152A" Offset="0.20"/>
+                    <GradientStop Color="#12022E" Offset="0.40"/>
+                    <GradientStop Color="#230228" Offset="0.59"/>
+                    <GradientStop Color="#221238" Offset="0.79"/>
+                    <GradientStop Color="#0E1A33" Offset="1.00"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                <WrapPanel x:Name="AnimeCards" Orientation="Horizontal" 
+                        Margin="50,50,50,50" HorizontalAlignment="Left"
+                        VerticalAlignment="Top">
+                    <WrapPanel.Resources>
+                        <Style TargetType="uc:AnimeCard">
+                            <Setter Property="Margin" Value="5,0,0,0"/>
+                        </Style>
+                    </WrapPanel.Resources>
+                </WrapPanel>
+            </ScrollViewer>
+        </Grid>
+        <Border Grid.ColumnSpan="2" Grid.RowSpan="3" Name="windowDim" Background="Black" Opacity="0.5" Visibility="Collapsed"/>
+    </Grid>
+</Window>
