@@ -64,33 +64,29 @@
             </Grid.Background>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="83.713*"/>
-                <ColumnDefinition Width="2.643*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="7.93*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="150"/>
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Column="0" Text="🌸 Anime Library 📚" VerticalAlignment="Center" 
                HorizontalAlignment="Center" Grid.ColumnSpan="3"
                FontSize="14" Foreground="White"/>
 
-            <!-- Divider -->
-            <Border Grid.Column="2" Width="1" Height="15" Background="Gray"/>
-
-            <!--> Settings Button -->
-            <Button Grid.Column="1" x:Name="btnSettings" Content="🛠" Width="35" Height="35"
+            <!--> Window Control Buttons -->
+            <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Button Grid.Column="1" x:Name="btnSettings" Content="🛠" Width="35" Height="35"
                     BorderBrush="Transparent" Background="Transparent"
                     FontSize="12"
                     Click="btnSettings_Click" FontFamily="Segoe UI Emoji"
-                    Style="{StaticResource ButtonHover}" Tag="0"/>
-
-            <!--> Window Control Buttons -->
-            <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" >
+                    Style="{StaticResource ButtonHover}" Tag="0"
+                    Margin="0,0,10,0"/>
+                <Border Grid.Column="2" Width="1" Height="15" Background="Gray"
+                        Margin="0,0,10,0"/>
                 <Button x:Name="btnMinW" Content="&#xE921;" Width="35" Height="35"
                         BorderBrush="Transparent" Background="Transparent"
                         FontSize="10"
                         Click="btnMinW_Click" FontFamily="Segoe MDL2 Assets"
-                        Style="{StaticResource ButtonHover}" Tag="0" />
+                        Style="{StaticResource ButtonHover}" Tag="0"/>
                 <Button x:Name="btnMaxW" Content="&#xE922;" Width="35" Height="35"
                         BorderBrush="Transparent" Background="Transparent"
                         FontSize="10"
@@ -120,6 +116,10 @@
 
         <!--> Content -->
         <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
             <Grid.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="#02282B" Offset="0.00"/>
@@ -130,9 +130,11 @@
                     <GradientStop Color="#0E1A33" Offset="1.00"/>
                 </LinearGradientBrush>
             </Grid.Background>
-            <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+            <uc:SearchTextBox x:Name="tbSearch" Grid.Row="0" PlaceHolder="Search..." Width="200" 
+                              Visibility="Collapsed"/>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
                 <WrapPanel x:Name="AnimeCards" Orientation="Horizontal" 
-                        Margin="50,50,50,50" HorizontalAlignment="Left"
+                        Margin="50,0,50,50" HorizontalAlignment="Left"
                         VerticalAlignment="Top">
                     <WrapPanel.Resources>
                         <Style TargetType="uc:AnimeCard">

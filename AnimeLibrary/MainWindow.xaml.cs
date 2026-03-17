@@ -24,6 +24,7 @@ namespace AnimeLibrary
                     AnimeCards.Children.Add(new AnimeCard(id));
                 }
             }
+            tbSearch.Visibility = Visibility.Visible;
         }
 
         private void btnCloseW_Click(object sender, RoutedEventArgs e)

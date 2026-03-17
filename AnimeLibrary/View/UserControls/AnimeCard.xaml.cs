@@ -27,6 +27,7 @@ namespace AnimeLibrary.View.UserControls
                 this.Loaded += async (_, _) => await GetAnimeScrape(id);
                 this.Loaded += (_, _) => getEpisodes(id);
             }
+            SearchTextBox.OnSearchChanged += HandleSearch;
 
         }
 
@@ -157,6 +158,17 @@ namespace AnimeLibrary.View.UserControls
         private void Border_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             AnyCardClicked?.Invoke(this);
+        }
+
+        private void HandleSearch(string searchText)
+        {
+            if (string.IsNullOrEmpty(searchText))
+            {
+                this.Visibility = Visibility.Visible;
+                return;
+            }
+            bool isMatch = animeTitle.Text.Contains(searchText, StringComparison.OrdinalIgnoreCase);
+            this.Visibility = isMatch ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }
