@@ -18,6 +18,7 @@
     <None Remove="mpv\mpvnet.runtimeconfig.json" />
     <None Remove="mpv\NGettext.dll" />
     <None Remove="mpv\NGettext.Wpf.dll" />
+    <None Remove="View\Assets\icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,6 +53,10 @@
 
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.12.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="View\Assets\icon.ico" />
   </ItemGroup>
 
 </Project>
