@@ -1,14 +1,12 @@
 ﻿using HtmlAgilityPack;
 using System.IO;
+using System.Net;
 using System.Net.Http;
-using System.Runtime.CompilerServices;
-using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
-using System.Xml.Serialization;
 
 
 namespace AnimeLibrary.View.UserControls
@@ -22,13 +20,22 @@ namespace AnimeLibrary.View.UserControls
             InitializeComponent();
             this.AnimeId = id;
             AnyCardClicked += OnAnyCardClicked;
-            if (id != null)
-            {
-                this.Loaded += async (_, _) => await GetAnimeScrape(id);
-                this.Loaded += (_, _) => getEpisodes(id);
-            }
             SearchTextBox.OnSearchChanged += HandleSearch;
 
+        }
+
+        public async Task<bool> InitaliseAsync()
+        {
+            if (string.IsNullOrEmpty(AnimeId)) return false;
+
+            bool success = await GetAnimeScrape(AnimeId);
+
+            if (success)
+            {
+                getEpisodes(AnimeId);
+            }
+
+            return success;
         }
 
         private void getEpisodes(string thisId)
@@ -64,6 +71,9 @@ namespace AnimeLibrary.View.UserControls
                     }
                     this.cardDim.Visibility = Visibility.Visible;
                     this.EpisodeScroll.Visibility = Visibility.Visible;
+                    this.SynopsisBox.Visibility = Visibility.Collapsed;
+                    this.SynopsisOpen.Visibility = Visibility.Visible;
+                    this.SynopsisClose.Visibility = Visibility.Collapsed;
                 } else
                 {
                     if (mainBorder.Effect is DropShadowEffect shadowEffect)
@@ -72,6 +82,9 @@ namespace AnimeLibrary.View.UserControls
                     }
                     this.cardDim.Visibility = Visibility.Collapsed;
                     this.EpisodeScroll.Visibility = Visibility.Collapsed;
+                    this.SynopsisBox.Visibility = Visibility.Collapsed;
+                    this.SynopsisOpen.Visibility = Visibility.Collapsed;
+                    this.SynopsisClose.Visibility = Visibility.Collapsed;
                 }
             } 
             else
@@ -82,10 +95,13 @@ namespace AnimeLibrary.View.UserControls
                 }
                 this.cardDim.Visibility = Visibility.Collapsed;
                 this.EpisodeScroll.Visibility = Visibility.Collapsed;
+                this.SynopsisBox.Visibility = Visibility.Collapsed;
+                this.SynopsisOpen.Visibility = Visibility.Collapsed;
+                this.SynopsisClose.Visibility = Visibility.Collapsed;
             }
         }
 
-        private async Task GetAnimeScrape(string id)
+        private async Task<bool> GetAnimeScrape(string id)
         {
             try
             {
@@ -100,6 +116,9 @@ namespace AnimeLibrary.View.UserControls
                 var studioNode = doc.DocumentNode.SelectSingleNode("//span[text()='Studios:']/following-sibling::a");
                 var scoreNode = doc.DocumentNode.SelectSingleNode("//span[@itemprop='ratingValue']");
                 var imageNode = doc.DocumentNode.SelectSingleNode("//img[contains(@class, 'lazyload')]");
+                var synopsisNode = doc.DocumentNode.SelectSingleNode("//p[@itemprop='description']");
+
+                if (titleNode == null) return false;
 
                 if (titleNode != null)
                 {
@@ -148,9 +167,17 @@ namespace AnimeLibrary.View.UserControls
                     }
                 }
 
+                if (synopsisNode != null)
+                {
+                    animeSynopsis.Text = WebUtility.HtmlDecode(synopsisNode.InnerText.Trim());
+                }
+
+                return true;
+
             } 
             catch (Exception ex) {
-                Console.WriteLine($"Error loading image: {ex.Message}");
+                Console.WriteLine($"Error loading card: {ex.Message}");
+                return false;
             }
             
         }
@@ -169,6 +196,20 @@ namespace AnimeLibrary.View.UserControls
             }
             bool isMatch = animeTitle.Text.Contains(searchText, StringComparison.OrdinalIgnoreCase);
             this.Visibility = isMatch ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private void SynopsisBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.SynopsisBox.Visibility = Visibility.Visible;
+            this.SynopsisOpen.Visibility = Visibility.Collapsed;
+            this.SynopsisClose.Visibility = Visibility.Visible;
+        }
+
+        private void SynopsisBtnC_Click(object sender, RoutedEventArgs e)
+        {
+            this.SynopsisBox.Visibility = Visibility.Collapsed;
+            this.SynopsisClose.Visibility = Visibility.Collapsed;
+            this.SynopsisOpen.Visibility = Visibility.Visible;
         }
     }
 }

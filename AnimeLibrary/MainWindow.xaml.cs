@@ -15,13 +15,26 @@ namespace AnimeLibrary
 
         public async Task LoadCards(string[] ids)
         {
-            AnimeCards.Children.Clear();
-            foreach (var id in ids)
+            var existingIds = AnimeCards.Children.OfType<AnimeCard>().Select(c => c.AnimeId).ToHashSet();
+
+            var newIds = ids.Where(id => !existingIds.Contains(id)).ToList();
+            var cardTasks = newIds.Select(async id =>
             {
-                bool alreadyExists = AnimeCards.Children.OfType<AnimeCard>().Any(card => card.AnimeId == id);
-                if (!alreadyExists)
+                var newCard = new AnimeCard(id);
+                bool success = await newCard.InitaliseAsync();
+                return new { Card = newCard, Success = success };
+            }).ToList();
+
+            while (cardTasks.Count > 0)
+            {
+                var finishedTask = await Task.WhenAny(cardTasks);
+                cardTasks.Remove(finishedTask);
+
+                var result = await finishedTask;
+
+                if (result.Success)
                 {
-                    AnimeCards.Children.Add(new AnimeCard(id));
+                    AnimeCards.Children.Add(result.Card);
                 }
             }
             tbSearch.Visibility = Visibility.Visible;

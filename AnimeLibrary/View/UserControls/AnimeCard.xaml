@@ -4,6 +4,16 @@
              xmlns:uc="clr-namespace:AnimeLibrary.View.UserControls"
              MinHeight="300" MinWidth="200"
              MaxHeight="450" MaxWidth="300">
+    <!-- Styles -->
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/View/UserControls/ElementStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <!-- Main -->
     <Viewbox Stretch="Uniform">
         <Border Name="mainBorder" CornerRadius="20" MouseLeftButtonDown="Border_MouseLeftButtonDown" Cursor="Hand">
             <Border.Effect>
@@ -19,6 +29,8 @@
                         <RowDefinition Height="75"/>
                         <RowDefinition Height="50"/>
                     </Grid.RowDefinitions>
+                    
+                    <!-- Cover Image and Rating -->
                     <Image Grid.Row="0" Grid.RowSpan="2" x:Name="animeImage" Stretch="UniformToFill"/>
                     <Border Grid.Row="0" Background="#4B0082" Width="30" Height="30"
                             HorizontalAlignment="Left" VerticalAlignment="Top"
@@ -30,6 +42,8 @@
                                HorizontalAlignment="Center" VerticalAlignment="Center" 
                                FontSize="14" FontWeight="Bold" Foreground="White"/>
                     </Border>
+                    
+                    <!-- Anime Info -->
                     <Grid Grid.Row="2">
                         <Grid.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -47,16 +61,56 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" x:Name="animeTitle" Foreground="#CED5D8" 
-                                   FontSize="8" Margin="5,2,0,0" Text="Title"
+                                   FontSize="8" Margin="5,2,0,0"
                                    FontWeight="Bold"/>
                         <TextBlock Grid.Row="1" x:Name="animeAired" Foreground="#CED5D8" 
-                                   FontSize="8" Margin="5,2,0,0" Text="Aired"
+                                   FontSize="8" Margin="5,2,0,0"
                                    FontWeight="Bold"/>
                         <TextBlock Grid.Row="2" x:Name="animeStudio" Foreground="#CED5D8" 
-                                   FontSize="8" Margin="5,2,0,0" Text="Studio"
+                                   FontSize="8" Margin="5,2,0,0"
                                    FontWeight="Bold"/>
                     </Grid>
+
+                    <!-- Selection Overlay -->
                     <Border Grid.RowSpan="2" Name="cardDim" Background="White" Opacity="0.05" Visibility="Collapsed"/>
+
+                    <!-- Synopsis Open -->
+                    <Border x:Name="SynopsisOpen" Grid.Row="0" Background="Purple" Opacity="0.75"
+                            Width="30" Height="15" VerticalAlignment="Top"
+                            CornerRadius="5" Margin="0,5,0,0" Visibility="Collapsed">
+                        <Border.Effect>
+                            <DropShadowEffect Color="#4B0082" BlurRadius="10" ShadowDepth="0"/>
+                        </Border.Effect>
+                        <Button Name="SynopsisBtn" Content="⮟" FontWeight="Bold" FontSize="10" Background="Transparent"
+                                BorderThickness="0" Style="{StaticResource ButtonHover}"
+                                Click="SynopsisBtn_Click"/>
+                    </Border>
+                    <!-- Synopsis Close -->
+                    <Border x:Name="SynopsisClose" Grid.Row="0" Background="Black" Opacity="0.75"
+                            Width="200" Height="10" VerticalAlignment="Bottom"
+                            Margin="0,0,0,15" Visibility="Collapsed">
+                        <Border.Effect>
+                            <DropShadowEffect Color="#4B0082" BlurRadius="10" ShadowDepth="0"/>
+                        </Border.Effect>
+                        <Button Name="SynopsisBtnC" Content="&#8212;&#8212;&#8212;&#8212;&#8212;" FontWeight="Bold" 
+                                FontSize="10" Background="Transparent"
+                                BorderThickness="0" Style="{StaticResource ButtonHover}"
+                                Click="SynopsisBtnC_Click"/>
+                    </Border>
+                    <!-- Synopsis Box -->
+                    <Border x:Name="SynopsisBox" Grid.Row="0" Background="Black" Opacity="0.75"
+                            Width="200" Height="150" VerticalAlignment="Top" Visibility="Collapsed">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+                                      Cursor="Arrow">
+                            <ScrollViewer.Resources>
+                                <Style TargetType="ScrollBar" BasedOn="{StaticResource SlimScrollBar}"/>
+                            </ScrollViewer.Resources>
+                            <TextBlock x:Name="animeSynopsis" TextWrapping="Wrap" Margin="5" FontSize="8" 
+                                   Foreground="White"/>
+                        </ScrollViewer>
+                    </Border>
+                    
+                    <!-- Episode List -->
                     <Grid Grid.Row="1">
                         <ScrollViewer Name="EpisodeScroll" VerticalScrollBarVisibility="Hidden" 
                                       HorizontalScrollBarVisibility="Disabled" Visibility="Collapsed"

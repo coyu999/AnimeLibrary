@@ -30,6 +30,7 @@ namespace AnimeLibrary.View.UserControls
             if (mainWindow != null)
             {
                 _ = mainWindow.LoadCards(animeDir.Keys.ToArray());
+                mainWindow.cardScroll.ScrollToTop();
             }
             Close();
         }
@@ -38,6 +39,7 @@ namespace AnimeLibrary.View.UserControls
         {
             OpenFolderDialog openFolderDialog = new OpenFolderDialog();
             string idPattern = @"\((?<value>\d+)\)";
+            string idPattern2 = @"-\s*(?<value>\d+)";
             if (openFolderDialog.ShowDialog() == true)
             {
                 txtDirectory.Text = openFolderDialog.FolderName;
@@ -49,11 +51,20 @@ namespace AnimeLibrary.View.UserControls
                     if (Regex.IsMatch(folderName, idPattern))
                     {
                         string id = Regex.Match(folderName, idPattern).Groups["value"].Value;
-                        if (!animeDir.ContainsKey(folderName))
+                        if (!animeDir.ContainsKey(id))
                         {
                             animeDir.Add(id, subFolderPath);
                         }
                     }
+                    else if (Regex.IsMatch(folderName, idPattern2))
+                    {
+                        string id = Regex.Match(folderName, idPattern2).Groups["value"].Value;
+                        if (!animeDir.ContainsKey(id))
+                        {
+                            animeDir.Add(id, subFolderPath);
+                        }
+                    }
+
                 }
             }
         }

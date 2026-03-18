@@ -6,13 +6,23 @@
              xmlns:local="clr-namespace:AnimeLibrary.View.UserControls"
              mc:Ignorable="d" 
              Height="20" Width="40">
+    <!-- Styles -->
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/View/UserControls/ElementStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Border CornerRadius="5" Cursor="Hand" Background="#1F1F1F">
         <Border.Effect>
             <DropShadowEffect Color="Black" BlurRadius="5" ShadowDepth="0"/>
         </Border.Effect>
         <Button x:Name="episodeNum" HorizontalAlignment="Center"
-                       VerticalAlignment="Center" Foreground="White"
-                       FontSize="8" FontWeight="Bold" Background="Transparent"
-                       BorderThickness="0" Width="40" Height="20" Click="episodeNum_Click"/>
+                VerticalAlignment="Center" Background="Transparent"
+                FontSize="8" FontWeight="Bold" BorderThickness="0" 
+                Width="40" Height="20" Click="episodeNum_Click"
+                Style="{StaticResource ButtonHover}"/>
     </Border>
 </UserControl>
