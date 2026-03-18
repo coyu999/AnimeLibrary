@@ -15,7 +15,7 @@ A WPF Application designed to help you organize and enjoy your local anime colle
 
 1. Click the 🛠 **Settings** icon in the top-left to configure your library.
 2. Click **Browse** to select the root folder containing your anime.
-3. **Important:** Ensure your folders are named with the MyAnimeList ID in parentheses, e.g., `Cowboy Bebop (1)`.
+3. **Important:** Ensure your folders are named containing the MyAnimeList ID. e.g. "*anything* (12345)" or "*anything* - 12345"
 4. Click ✔️ **Confirm** to load the library; the app will automatically scrape titles, art, and ratings.
 5. Click an **Anime Card** to view available episodes.
 6. Click an **Episode Button** to launch the video directly in **mpvnet**.
