@@ -16,7 +16,7 @@ namespace AnimeLibrary
         public async Task LoadCards(string[] ids)
         {
             var existingIds = AnimeCards.Children.OfType<AnimeCard>().Select(c => c.AnimeId).ToHashSet();
-
+            tbSearch.Visibility = Visibility.Visible;
             var newIds = ids.Where(id => !existingIds.Contains(id)).ToList();
             var cardTasks = newIds.Select(async id =>
             {
@@ -37,7 +37,6 @@ namespace AnimeLibrary
                     AnimeCards.Children.Add(result.Card);
                 }
             }
-            tbSearch.Visibility = Visibility.Visible;
         }
 
         private void btnCloseW_Click(object sender, RoutedEventArgs e)
