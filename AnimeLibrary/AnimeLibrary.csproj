@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="config.json" />
     <None Remove="mpv\CommunityToolkit.Mvvm.dll" />
     <None Remove="mpv\libmpv-2.dll" />
     <None Remove="mpv\libmpvnet.dll" />
@@ -19,10 +20,14 @@
     <None Remove="mpv\mpvnet.runtimeconfig.json" />
     <None Remove="mpv\NGettext.dll" />
     <None Remove="mpv\NGettext.Wpf.dll" />
+    <None Remove="View\Assets\bin.svg" />
     <None Remove="View\Assets\icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="mpv\CommunityToolkit.Mvvm.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -54,9 +59,13 @@
 
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.12.4" />
+    <PackageReference Include="SharpVectors.Wpf" Version="1.8.5" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="View\Assets\bin.svg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="View\Assets\icon.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>

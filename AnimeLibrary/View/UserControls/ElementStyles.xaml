@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <!-- Buttons Hover Effect -->
+    
+    <!-- Buttons Hover -->
     <Style x:Key="ButtonHover" TargetType="Button">
         <Setter Property="Foreground" Value="#CED5D8"/>
         <Setter Property="Tag" Value="5"/>
@@ -8,17 +9,17 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border Name="bg" Background="{TemplateBinding Background}"
-                        CornerRadius="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}">
+                            CornerRadius="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}">
                         <ContentPresenter
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        TextElement.Foreground="{TemplateBinding Foreground}"/>
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            TextElement.Foreground="{TemplateBinding Foreground}"/>
                     </Border>
 
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="bg" Property="Background"
-                            Value="#05FFFFFF"/>
+                                    Value="#05FFFFFF"/>
                             <Setter Property="Foreground" Value="White"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -26,7 +27,60 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
+    <!-- Trash Button Hover -->
+    <Style x:Key="TrashButtonHover" TargetType="Button">
+        <Setter Property="Foreground" Value="#CED5D8"/>
+        <Setter Property="Tag" Value="5"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="bg" Background="{TemplateBinding Background}"
+                            CornerRadius="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}">
+                        <ContentPresenter
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            TextElement.Foreground="{TemplateBinding Foreground}"/>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bg" Property="Background"
+                                Value="#25FFFFFF"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Checkbox Hover -->
+    <Style x:Key="CheckHover" TargetType="CheckBox">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <Grid Height="16">
+                        <Border x:Name="CheckBox" Width="16" Height="16" CornerRadius="5" Background="{TemplateBinding Background}" HorizontalAlignment="Left"/>
+                        <TextBlock x:Name="CheckMark" Text="✔️" Visibility="Collapsed"/>
+                        <Border x:Name="CheckDim" Width="16" Height="16" CornerRadius="5" Background="#05FFFFFF" HorizontalAlignment="Left" Visibility="Collapsed"/>
+                        <TextBlock Text="{TemplateBinding Content}" Margin="20,0,0,0" VerticalAlignment="Center"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="CheckDim" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!-- Scroll Bar -->
     <Style x:Key="SlimScrollBarThumb" TargetType="Thumb">
         <Setter Property="Template">

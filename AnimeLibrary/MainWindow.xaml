@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AnimeLibrary"
+        xmlns:svg="http://sharpvectors.codeplex.com/svgc/"
         xmlns:uc="clr-namespace:AnimeLibrary.View.UserControls"
         mc:Ignorable="d" WindowStyle="None"
         Title="Anime Library"
@@ -110,8 +111,37 @@
                     <GradientStop Color="#0E1A33" Offset="1.00"/>
                 </LinearGradientBrush>
             </Grid.Background>
-            <uc:SearchTextBox x:Name="tbSearch" Grid.Row="0" PlaceHolder="Search..." Width="200" 
+            
+            <!-- Search Bar -->
+            <uc:SearchTextBox x:Name="tbSearch" PlaceHolder="Search..." Width="200" 
                               Visibility="Collapsed"/>
+            
+            <!-- Clear Cards Button -->
+            <Button x:Name="btnClearCards" Width="30" Height="30" Background="Transparent" BorderThickness="0"
+                    Foreground="White" FontSize="18" VerticalContentAlignment="Center"
+                    Margin="0,0,235,0" Style="{StaticResource TrashButtonHover}"
+                    MouseEnter="btnClearCards_MouseEnter" MouseLeave="btnClearCards_MouseLeave"
+                    Click="btnClearCards_Click" Visibility="Collapsed">
+                <svg:SvgViewbox Source="pack://application:,,,/View/Assets/bin.svg" Stretch="Uniform"
+                                    Width="20" Height="20" HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center"/>
+            </Button>
+            
+            <!-- Clear Cards Button Hover Information -->
+            <StackPanel x:Name="TrashHoverInfo" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center"
+                        Margin="0,0,350,0" Visibility="Collapsed">
+                <!-- TextBlock -->
+                <Border Background="#25FFFFFF" Padding="3" CornerRadius="5">
+                    <TextBlock Text="Clear Cards" Foreground="White"/>
+                </Border>
+
+                <!-- Arrow pointing right -->
+                <Polygon Points="0,0 5,5 0,10"
+                        Fill="#25FFFFFF"
+                        VerticalAlignment="Center"/>
+            </StackPanel>
+            
+            <!-- Anime Cards -->
             <ScrollViewer x:Name="cardScroll" Grid.Row="1" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
                 <WrapPanel x:Name="AnimeCards" Orientation="Horizontal" 
                         Margin="50,0,50,50" HorizontalAlignment="Left"
