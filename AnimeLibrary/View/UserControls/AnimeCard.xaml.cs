@@ -42,19 +42,21 @@ namespace AnimeLibrary.View.UserControls
         {
             string[] extensions = { ".mp4", ".mkv", ".avi", ".mov" };
             Settings.animeDir.TryGetValue(thisId!, out string? animePath);
-            string epPattern = @"(?:\s-\s|(?<=\s))(\d+)(?=\s|\[)";
+            //string epPattern = @"(?:\s-\s|(?<=\s))(\d+)(?=\s|\[)";
+            string epPattern = @"(?:\s-\s|\s|^)(\d+)(?=\s|\[|$)";
+            string epPattern2 = @"^(?:(.+)\s-\s)?(\d+)$";
             if (animePath != null)
             {
                 var files = Directory.GetFiles(animePath).Where(file => extensions.Contains(Path.GetExtension(file).ToLower())).ToList();
 
                 foreach (string file in files)
                 {
-                    string fileName = Path.GetFileName(file);
+                    string fileName = Path.GetFileNameWithoutExtension(file);
                     if (Regex.IsMatch(fileName, epPattern))
                     {
-                        string epNum = Regex.Match(file, epPattern).Groups[1].Value;
+                        string epNum = Regex.Match(fileName, epPattern).Groups[1].Value;
                         this.EpisodeCards.Children.Add(new EpisodeCard(epNum, file));
-                    }
+                    } 
                 }
             }
         }
