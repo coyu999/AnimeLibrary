@@ -20,6 +20,46 @@
     <None Remove="mpv\mpvnet.runtimeconfig.json" />
     <None Remove="mpv\NGettext.dll" />
     <None Remove="mpv\NGettext.Wpf.dll" />
+    <None Remove="mpv\shaders\Anime4K_AutoDownscalePre_x2.glsl" />
+    <None Remove="mpv\shaders\Anime4K_AutoDownscalePre_x4.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Clamp_Highlights.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Darken_Fast.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Darken_HQ.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Darken_VeryFast.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Deblur_DoG.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Deblur_Original.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Denoise_Bilateral_Mean.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Denoise_Bilateral_Median.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Denoise_Bilateral_Mode.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Restore_CNN_L.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Restore_CNN_M.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Restore_CNN_S.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Restore_CNN_Soft_L.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Restore_CNN_Soft_M.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Restore_CNN_Soft_S.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Restore_CNN_Soft_UL.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Restore_CNN_Soft_VL.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Restore_CNN_UL.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Restore_CNN_VL.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Thin_Fast.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Thin_HQ.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Thin_VeryFast.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Upscale_CNN_x2_L.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Upscale_CNN_x2_M.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Upscale_CNN_x2_S.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Upscale_CNN_x2_UL.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Upscale_CNN_x2_VL.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Upscale_Deblur_DoG_x2.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Upscale_Deblur_Original_x2.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Upscale_Denoise_CNN_x2_L.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Upscale_Denoise_CNN_x2_M.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Upscale_Denoise_CNN_x2_S.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Upscale_Denoise_CNN_x2_UL.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Upscale_Denoise_CNN_x2_VL.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Upscale_DoG_x2.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Upscale_DTD_x2.glsl" />
+    <None Remove="mpv\shaders\Anime4K_Upscale_Original_x2.glsl" />
+    <None Remove="mpv\shaders\bg-zoom.glsl" />
     <None Remove="View\Assets\bin.svg" />
     <None Remove="View\Assets\icon.ico" />
   </ItemGroup>
@@ -30,29 +70,158 @@
     </Content>
     <Content Include="mpv\CommunityToolkit.Mvvm.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
     <Content Include="mpv\libmpv-2.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
     <Content Include="mpv\libmpvnet.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
     <Content Include="mpv\Microsoft.Xaml.Behaviors.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
     <Content Include="mpv\mpvnet.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
     <Content Include="mpv\mpvnet.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
     <Content Include="mpv\mpvnet.runtimeconfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
     <Content Include="mpv\NGettext.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
     <Content Include="mpv\NGettext.Wpf.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_AutoDownscalePre_x2.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_AutoDownscalePre_x4.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Clamp_Highlights.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Darken_Fast.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Darken_HQ.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Darken_VeryFast.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Deblur_DoG.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Deblur_Original.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Denoise_Bilateral_Mean.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Denoise_Bilateral_Median.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Denoise_Bilateral_Mode.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Restore_CNN_L.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Restore_CNN_M.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Restore_CNN_S.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Restore_CNN_Soft_L.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Restore_CNN_Soft_M.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Restore_CNN_Soft_S.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Restore_CNN_Soft_UL.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Restore_CNN_Soft_VL.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Restore_CNN_UL.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Restore_CNN_VL.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Thin_Fast.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Thin_HQ.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Thin_VeryFast.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Upscale_CNN_x2_L.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Upscale_CNN_x2_M.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Upscale_CNN_x2_S.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Upscale_CNN_x2_UL.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Upscale_CNN_x2_VL.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Upscale_Deblur_DoG_x2.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Upscale_Deblur_Original_x2.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Upscale_Denoise_CNN_x2_L.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Upscale_Denoise_CNN_x2_M.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Upscale_Denoise_CNN_x2_S.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Upscale_Denoise_CNN_x2_UL.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Upscale_Denoise_CNN_x2_VL.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Upscale_DoG_x2.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Upscale_DTD_x2.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\Anime4K_Upscale_Original_x2.glsl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mpv\shaders\bg-zoom.glsl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

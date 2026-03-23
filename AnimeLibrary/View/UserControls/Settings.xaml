@@ -43,7 +43,8 @@
             <TextBlock Grid.Column="0" Text="🛠 Settings ⚙️" VerticalAlignment="Center" 
                 HorizontalAlignment="Center" Grid.ColumnSpan="3"
                 FontSize="14" Foreground="White"/>
-
+            
+            <!-- Close Settings Button-->
             <Button x:Name="btnCloseS" Grid.Row="0" Content="&#xE8BB;" Width="35" Height="35"
                 BorderBrush="Transparent" Background="Transparent"
                 FontSize="15" HorizontalAlignment="Right" VerticalAlignment="Top"
@@ -79,6 +80,7 @@
                     </LinearGradientBrush>
                 </Border.Background>
             </Border>
+            
             <!-- Direcroty Text Block -->
             <TextBlock Grid.Row="2" Text="Video file directory"
                        Width="101" Height="17" Foreground="White"
@@ -105,23 +107,65 @@
                 Style="{StaticResource ButtonHover}" Tag="5"/>
             
             <!-- Save to Config Checkbox -->
-            <CheckBox Grid.Row="2" x:Name="chkSaveConfig" Content="Save to config file" 
-                      Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                      Margin="20,90,0,0" Background="#33808080"
-                      Style="{StaticResource CheckHover}" Checked="chkSaveConfig_Checked"/>
+            <RadioButton Grid.Row="2" x:Name="chkSaveConfig" Content="Save to config file" 
+                         Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                         Margin="20,90,0,0" Background="#33808080"
+                         Checked="ConfigSettings_Checked" GroupName="ConfigSet"
+                         Style="{StaticResource CheckHover}"
+                         Tag="Save"/>
 
-            <!-- Save to Config Checkbox -->
-            <CheckBox Grid.Row="2" x:Name="chkResetConfig" Content="Reset config file" 
-                      Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                      Margin="20,125,0,0" Background="#33808080"
-                      Style="{StaticResource CheckHover}" Checked="chkResetConfig_Checked"/>
+            <!-- Reset Directory in Config Checkbox -->
+            <RadioButton Grid.Row="2" x:Name="chkResetConfig" Content="Reset config file" 
+                         Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                         Margin="20,125,0,0" Background="#33808080"
+                         Checked="ConfigSettings_Checked" GroupName="ConfigSet"
+                         Style="{StaticResource CheckHover}"
+                         Tag="Reset"/>
+            
+            <!-- Anime4k Profiles -->
+            <!-- A -->
+            <RadioButton Grid.Row="2" x:Name="chkA" Content="A" 
+                         Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                         Margin="20,160,0,0" Background="#33808080"
+                         Style="{StaticResource CheckHover}" 
+                         GroupName="Anime4kGroup" Tag="A" Click="Preset_Click"/>
+            <!-- B -->
+            <RadioButton Grid.Row="2" x:Name="chkB" Content="B" 
+                         Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                         Margin="20,195,0,0" Background="#33808080"
+                         Style="{StaticResource CheckHover}" 
+                         GroupName="Anime4kGroup" Tag="B" Click="Preset_Click"/>
+            <!-- C -->
+            <RadioButton Grid.Row="2" x:Name="chkC" Content="C" 
+                         Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                         Margin="20,230,0,0" Background="#33808080"
+                         Style="{StaticResource CheckHover}" 
+                         GroupName="Anime4kGroup" Tag="C" Click="Preset_Click"/>
+            <!-- A+A -->
+            <RadioButton Grid.Row="2" x:Name="chkAA" Content="A+A" 
+                         Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                         Margin="100,160,0,0" Background="#33808080"
+                         Style="{StaticResource CheckHover}" 
+                         GroupName="Anime4kGroup" Tag="AA" Click="Preset_Click"/>
+            <!-- B+B -->
+            <RadioButton Grid.Row="2" x:Name="chkBB" Content="B+B" 
+                         Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                         Margin="100,195,0,0" Background="#33808080"
+                         Style="{StaticResource CheckHover}" 
+                         GroupName="Anime4kGroup" Tag="BB" Click="Preset_Click"/>
+            <!-- C+A -->
+            <RadioButton Grid.Row="2" x:Name="chkCA" Content="C+A" 
+                         Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                         Margin="100,230,0,0" Background="#33808080"
+                         Style="{StaticResource CheckHover}" 
+                         GroupName="Anime4kGroup" Tag="CA" Click="Preset_Click"/>
 
             <!-- Confirm Button -->
             <Button x:Name="btnConfirm" Grid.Row="3" Content="✔️" Width="40" Height="40"
-                BorderBrush="Transparent" Background="Transparent"
-                FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"
-                Click="btnConfirm_Click"
-                Style="{StaticResource ButtonHover}" Tag="2"/>
+                    BorderBrush="Transparent" Background="Transparent"
+                    FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Click="btnConfirm_Click"
+                    Style="{StaticResource ButtonHover}" Tag="2"/>
         </Grid>
     </Border>
 

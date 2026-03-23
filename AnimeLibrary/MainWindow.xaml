@@ -111,7 +111,6 @@
                     <GradientStop Color="#0E1A33" Offset="1.00"/>
                 </LinearGradientBrush>
             </Grid.Background>
-            
             <!-- Search Bar -->
             <uc:SearchTextBox x:Name="tbSearch" PlaceHolder="Search..." Width="200" 
                               Visibility="Collapsed"/>

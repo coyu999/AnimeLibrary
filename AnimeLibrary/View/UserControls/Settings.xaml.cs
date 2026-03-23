@@ -8,12 +8,17 @@ using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Automation;
+using System.Windows.Controls;
 
 namespace AnimeLibrary.View.UserControls
 {
     public partial class Settings : Window
     {
         public static string? AnimeDirectory { get; set; }
+        public static string? Anime4kPreset { get; set; }
+
+        private RadioButton? selectedPresetRadioButton = null;
+
         public static Dictionary<string, string> animeDir = new Dictionary<string, string>();
         public static bool SaveConfig { get; set; }
         public static bool ResetConfig { get; set; }
@@ -112,14 +117,52 @@ namespace AnimeLibrary.View.UserControls
             }
         }
 
-        private void chkSaveConfig_Checked(object sender, RoutedEventArgs e)
+        private void ConfigSettings_Checked(object sender, RoutedEventArgs e)
         {
-            SaveConfig = true;
+            if (sender is RadioButton rb)
+            {
+                if (rb.Tag.ToString() == "Save")
+                {
+                    SaveConfig = true;
+                    ResetConfig = false;
+                }
+                else if (rb.Tag.ToString() == "Reset")
+                {
+                    SaveConfig = false;
+                    ResetConfig = true;
+                }
+            }
         }
 
         private void chkResetConfig_Checked(object sender, RoutedEventArgs e)
         {
             ResetConfig = true;
+        }
+
+        private void Preset_Checked(object sender, RoutedEventArgs e)
+        {
+            if (sender is RadioButton rb)            
+            {
+                Anime4kPreset = rb.Tag.ToString();
+                selectedPresetRadioButton = rb;
+            }
+        }
+
+        private void Preset_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is RadioButton rb)
+            {
+                if (selectedPresetRadioButton == rb)
+                {
+                    rb.IsChecked = false;
+                    selectedPresetRadioButton = null;
+                    Anime4kPreset = null;
+                } else
+                {
+                    selectedPresetRadioButton = rb;
+                    Anime4kPreset = rb.Tag.ToString();
+                }
+            }
         }
     }
 }

@@ -29,13 +29,12 @@ namespace AnimeLibrary
                 settings.OpenDirectory(directory);
                 _ = LoadCards(Settings.animeDir.Keys.ToArray());
             }
-        }
 
+            
+        }
         public async Task LoadCards(string[] ids)
         {
             var existingIds = AnimeCards.Children.OfType<AnimeCard>().Select(c => c.AnimeId).ToHashSet();
-            tbSearch.Visibility = Visibility.Visible;
-            btnClearCards.Visibility = Visibility.Visible;
             var newIds = ids.Where(id => !existingIds.Contains(id)).ToList();
             var cardTasks = newIds.Select(async id =>
             {
@@ -54,6 +53,8 @@ namespace AnimeLibrary
                 if (result.Success)
                 {
                     AnimeCards.Children.Add(result.Card);
+                    tbSearch.Visibility = Visibility.Visible;
+                    btnClearCards.Visibility = Visibility.Visible;
                 }
             }
         }
@@ -116,6 +117,7 @@ namespace AnimeLibrary
 
             File.WriteAllText("config.json", jsonNode.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
             Settings.AnimeDirectory = null;
+            Settings.animeDir.Clear();
         }
     }
 }

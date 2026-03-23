@@ -56,12 +56,12 @@
     </Style>
 
     <!-- Checkbox Hover -->
-    <Style x:Key="CheckHover" TargetType="CheckBox">
+    <Style x:Key="CheckHover" TargetType="RadioButton">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="Black"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="CheckBox">
+                <ControlTemplate TargetType="RadioButton">
                     <Grid Height="16">
                         <Border x:Name="CheckBox" Width="16" Height="16" CornerRadius="5" Background="{TemplateBinding Background}" HorizontalAlignment="Left"/>
                         <TextBlock x:Name="CheckMark" Text="✔️" Visibility="Collapsed"/>
