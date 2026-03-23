@@ -1,6 +1,8 @@
 # Anime Library
 A WPF Application designed to help you organize and enjoy your local anime collection by automating metadata retrieval and providing a modern viewing interface.
 
+Also integrates [Anime4k](https://github.com/bloc97/Anime4K) Upscaling as an optional feature.
+
 ---
 
 ## 📦 Requirements
