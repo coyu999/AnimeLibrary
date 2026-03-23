@@ -34,18 +34,19 @@ namespace AnimeLibrary.View.UserControls
             string config = File.ReadAllText("config.json");
             using JsonDocument jsonDoc = JsonDocument.Parse(config);
             if (string.IsNullOrEmpty(AnimePath)) return;
-            
+
+            string GetShaderArg(string preset) => string.Join(";", jsonDoc.RootElement
+                    .GetProperty($"{preset}")
+                    .EnumerateArray()
+                    .Select(element => Path.Combine(shadersPath, element.GetString())));
+
             if (!string.IsNullOrEmpty(Settings.Anime4kPreset))
             {
                 var selectedPreset = anime4kOSD.GetValueOrDefault(Settings.Anime4kPreset);
-                string shaders = string.Join(";", jsonDoc.RootElement
-                        .GetProperty($"{Settings.Anime4kPreset}")
-                        .EnumerateArray()
-                        .Select(element => Path.Combine(shadersPath, element.GetString())));
                 ProcessStartInfo startInfo = new ProcessStartInfo
                 {
                     FileName = mpvPath,
-                    Arguments = $"\"{AnimePath}\" --glsl-shaders=\"{shaders}\" --osd-playing-msg=\"{selectedPreset}\"",
+                    Arguments = $"\"{AnimePath}\" --glsl-shaders=\"{GetShaderArg(Settings.Anime4kPreset)}\" --osd-playing-msg=\"{selectedPreset}\"",
                     UseShellExecute = false,
                 };
 
