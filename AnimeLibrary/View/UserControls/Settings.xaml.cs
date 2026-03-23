@@ -18,6 +18,7 @@ namespace AnimeLibrary.View.UserControls
         public static string? Anime4kPreset { get; set; }
 
         private RadioButton? selectedPresetRadioButton = null;
+        private RadioButton? selectedDirRadioButton = null;
 
         public static Dictionary<string, string> animeDir = new Dictionary<string, string>();
         public static bool SaveConfig { get; set; }
@@ -35,10 +36,28 @@ namespace AnimeLibrary.View.UserControls
             using JsonDocument jsonDoc = JsonDocument.Parse(config);
 
             string directory = jsonDoc.RootElement.GetProperty("directory").GetString();
+            string currentUpscale = jsonDoc.RootElement.GetProperty("currentUpscale").GetString();
 
             if (IsValidDirectory(directory))
             {
                 AnimeDirectory = directory;
+            }
+
+            if (!string.IsNullOrEmpty(currentUpscale))
+            {
+                Anime4kPreset = currentUpscale;
+            }
+
+            if (!string.IsNullOrEmpty(Anime4kPreset))
+            {
+                var radioButtons = new[] { chkA, chkB, chkC, chkAA, chkBB, chkCA };
+                var matchedButton = radioButtons.FirstOrDefault(rb => rb.Tag.ToString() == Anime4kPreset);
+
+                if (matchedButton != null)
+                {
+                    matchedButton.IsChecked = true;
+                    selectedPresetRadioButton = matchedButton;
+                }
             }
             txtDirectory.Text = AnimeDirectory;
         }
@@ -63,6 +82,7 @@ namespace AnimeLibrary.View.UserControls
                 string config = File.ReadAllText("config.json");
                 JsonNode jsonNode = JsonNode.Parse(config);
                 jsonNode["directory"] = AnimeDirectory;
+                jsonNode["currentUpscale"] = Anime4kPreset;
 
                 File.WriteAllText("config.json", jsonNode.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
             }
@@ -71,6 +91,7 @@ namespace AnimeLibrary.View.UserControls
                 string config = File.ReadAllText("config.json");
                 JsonNode jsonNode = JsonNode.Parse(config);
                 jsonNode["directory"] = "";
+                jsonNode["currentUpscale"] = "";
 
                 File.WriteAllText("config.json", jsonNode.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
             }
@@ -139,14 +160,6 @@ namespace AnimeLibrary.View.UserControls
             ResetConfig = true;
         }
 
-        private void Preset_Checked(object sender, RoutedEventArgs e)
-        {
-            if (sender is RadioButton rb)            
-            {
-                Anime4kPreset = rb.Tag.ToString();
-                selectedPresetRadioButton = rb;
-            }
-        }
 
         private void Preset_Click(object sender, RoutedEventArgs e)
         {
@@ -161,6 +174,32 @@ namespace AnimeLibrary.View.UserControls
                 {
                     selectedPresetRadioButton = rb;
                     Anime4kPreset = rb.Tag.ToString();
+                }
+            }
+        }
+
+        private void Directory_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is RadioButton rb)
+            {
+                if (selectedDirRadioButton == rb)
+                {
+                    rb.IsChecked = false;
+                    selectedDirRadioButton = null;
+                }
+                else
+                {
+                    selectedDirRadioButton = rb;
+                    if (rb.Tag.ToString() == "Save")
+                    {
+                        SaveConfig = true;
+                        ResetConfig = false;
+                    }
+                    else if (rb.Tag.ToString() == "Reset")
+                    {
+                        SaveConfig = false;
+                        ResetConfig = true;
+                    }
                 }
             }
         }

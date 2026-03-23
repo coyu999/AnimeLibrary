@@ -110,17 +110,17 @@
             <RadioButton Grid.Row="2" x:Name="chkSaveConfig" Content="Save to config file" 
                          Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
                          Margin="20,90,0,0" Background="#33808080"
-                         Checked="ConfigSettings_Checked" GroupName="ConfigSet"
+                         GroupName="ConfigSet"
                          Style="{StaticResource CheckHover}"
-                         Tag="Save"/>
+                         Tag="Save" Click="Directory_Click"/>
 
             <!-- Reset Directory in Config Checkbox -->
             <RadioButton Grid.Row="2" x:Name="chkResetConfig" Content="Reset config file" 
                          Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
                          Margin="20,125,0,0" Background="#33808080"
-                         Checked="ConfigSettings_Checked" GroupName="ConfigSet"
+                         GroupName="ConfigSet"
                          Style="{StaticResource CheckHover}"
-                         Tag="Reset"/>
+                         Tag="Reset" Click="Directory_Click"/>
             
             <!-- Anime4k Profiles -->
             <!-- A -->

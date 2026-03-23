@@ -114,9 +114,11 @@ namespace AnimeLibrary
             string config = File.ReadAllText("config.json");
             JsonNode jsonNode = JsonNode.Parse(config);
             jsonNode["directory"] = "";
+            jsonNode["currentUpscale"] = "";
 
             File.WriteAllText("config.json", jsonNode.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
             Settings.AnimeDirectory = null;
+            Settings.Anime4kPreset = null;
             Settings.animeDir.Clear();
         }
     }

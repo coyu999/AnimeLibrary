@@ -1,5 +1,6 @@
 {
   "directory": "",
+  "currentUpscale": "",
   "A": [
     "Anime4K_Clamp_Highlights.glsl",
     "Anime4K_Restore_CNN_VL.glsl",
