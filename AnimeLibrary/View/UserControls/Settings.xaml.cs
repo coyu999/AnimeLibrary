@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Automation;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace AnimeLibrary.View.UserControls
 {
@@ -16,6 +17,7 @@ namespace AnimeLibrary.View.UserControls
     {
         public static string? AnimeDirectory { get; set; }
         public static string? Anime4kPreset { get; set; }
+        public static bool Anime4kChanged { get; set; } = false;
 
         private RadioButton? selectedPresetRadioButton = null;
         private RadioButton? selectedDirRadioButton = null;
@@ -45,7 +47,11 @@ namespace AnimeLibrary.View.UserControls
 
             if (!string.IsNullOrEmpty(currentUpscale))
             {
-                Anime4kPreset = currentUpscale;
+                if (Anime4kChanged == false)
+                {
+                    Anime4kPreset = currentUpscale;
+                }
+                
             }
 
             if (!string.IsNullOrEmpty(Anime4kPreset))
@@ -57,7 +63,17 @@ namespace AnimeLibrary.View.UserControls
                 {
                     matchedButton.IsChecked = true;
                     selectedPresetRadioButton = matchedButton;
+                    Anime4kChanged = true;
                 }
+
+                upscaleChks.Visibility = Visibility.Visible;
+                blockUpscale.Visibility = Visibility.Visible;
+                chkA.Foreground = Brushes.Gray;
+                chkB.Foreground = Brushes.Gray;
+                chkC.Foreground = Brushes.Gray;
+                chkAA.Foreground = Brushes.Gray;
+                chkBB.Foreground = Brushes.Gray;
+                chkCA.Foreground = Brushes.Gray;
             }
             txtDirectory.Text = AnimeDirectory;
         }
@@ -138,29 +154,6 @@ namespace AnimeLibrary.View.UserControls
             }
         }
 
-        private void ConfigSettings_Checked(object sender, RoutedEventArgs e)
-        {
-            if (sender is RadioButton rb)
-            {
-                if (rb.Tag.ToString() == "Save")
-                {
-                    SaveConfig = true;
-                    ResetConfig = false;
-                }
-                else if (rb.Tag.ToString() == "Reset")
-                {
-                    SaveConfig = false;
-                    ResetConfig = true;
-                }
-            }
-        }
-
-        private void chkResetConfig_Checked(object sender, RoutedEventArgs e)
-        {
-            ResetConfig = true;
-        }
-
-
         private void Preset_Click(object sender, RoutedEventArgs e)
         {
             if (sender is RadioButton rb)
@@ -174,6 +167,7 @@ namespace AnimeLibrary.View.UserControls
                 {
                     selectedPresetRadioButton = rb;
                     Anime4kPreset = rb.Tag.ToString();
+                    Anime4kChanged = true;
                 }
             }
         }
@@ -201,6 +195,50 @@ namespace AnimeLibrary.View.UserControls
                         ResetConfig = true;
                     }
                 }
+            }
+        }
+
+        private void chkUpscale_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is RadioButton rb)
+            {
+                if (rb.IsChecked == true)
+                {
+                    rb.IsChecked = false;
+                }
+                else
+                {
+                    rb.IsChecked = true;
+                }
+            }
+        }
+
+        private void chkUpscale_Checked(object sender, RoutedEventArgs e)
+        {
+            upscaleChks.Visibility = Visibility.Visible;
+            blockUpscale.Visibility = Visibility.Collapsed;
+            chkA.Foreground = Brushes.White;
+            chkB.Foreground = Brushes.White;
+            chkC.Foreground = Brushes.White;
+            chkAA.Foreground = Brushes.White;
+            chkBB.Foreground = Brushes.White;
+            chkCA.Foreground = Brushes.White;
+        }
+
+        private void chkUpscale_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (Anime4kPreset == null)
+            {
+                upscaleChks.Visibility = Visibility.Collapsed;
+            } else
+            {
+                blockUpscale.Visibility = Visibility.Visible;
+                chkA.Foreground = Brushes.Gray;
+                chkB.Foreground = Brushes.Gray;
+                chkC.Foreground = Brushes.Gray;
+                chkAA.Foreground = Brushes.Gray;
+                chkBB.Foreground = Brushes.Gray;
+                chkCA.Foreground = Brushes.Gray;
             }
         }
     }

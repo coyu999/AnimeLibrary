@@ -17,6 +17,7 @@
         </ResourceDictionary>
     </Window.Resources>
 
+    <!-- Background -->
     <Border CornerRadius="20" Margin="50" BorderThickness="1" BorderBrush="Purple">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" Opacity="0.9">
@@ -109,56 +110,65 @@
             <!-- Save to Config Checkbox -->
             <RadioButton Grid.Row="2" x:Name="chkSaveConfig" Content="Save to config file" 
                          Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                         Margin="20,90,0,0" Background="#33808080"
-                         GroupName="ConfigSet"
-                         Style="{StaticResource CheckHover}"
+                         Margin="20,90,0,0" Background="#33808080" GroupName="ConfigSet"
+                         Style="{StaticResource RadioHover}"
                          Tag="Save" Click="Directory_Click"/>
 
             <!-- Reset Directory in Config Checkbox -->
             <RadioButton Grid.Row="2" x:Name="chkResetConfig" Content="Reset config file" 
                          Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                         Margin="20,125,0,0" Background="#33808080"
-                         GroupName="ConfigSet"
-                         Style="{StaticResource CheckHover}"
+                         Margin="20,125,0,0" Background="#33808080" GroupName="ConfigSet"
+                         Style="{StaticResource RadioHover}"
                          Tag="Reset" Click="Directory_Click"/>
+
+            <CheckBox Grid.Row="2" x:Name="chkUpscale" Content="Anime4k Upscale" 
+                      Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"
+                      Margin="20,160,0,0" Background="#33808080"
+                      Style="{StaticResource CheckHover}" Checked="chkUpscale_Checked"
+                      Unchecked="chkUpscale_Unchecked"/>
             
-            <!-- Anime4k Profiles -->
-            <!-- A -->
-            <RadioButton Grid.Row="2" x:Name="chkA" Content="A" 
-                         Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                         Margin="20,160,0,0" Background="#33808080"
-                         Style="{StaticResource CheckHover}" 
-                         GroupName="Anime4kGroup" Tag="A" Click="Preset_Click"/>
-            <!-- B -->
-            <RadioButton Grid.Row="2" x:Name="chkB" Content="B" 
-                         Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                         Margin="20,195,0,0" Background="#33808080"
-                         Style="{StaticResource CheckHover}" 
-                         GroupName="Anime4kGroup" Tag="B" Click="Preset_Click"/>
-            <!-- C -->
-            <RadioButton Grid.Row="2" x:Name="chkC" Content="C" 
-                         Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                         Margin="20,230,0,0" Background="#33808080"
-                         Style="{StaticResource CheckHover}" 
-                         GroupName="Anime4kGroup" Tag="C" Click="Preset_Click"/>
-            <!-- A+A -->
-            <RadioButton Grid.Row="2" x:Name="chkAA" Content="A+A" 
-                         Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                         Margin="100,160,0,0" Background="#33808080"
-                         Style="{StaticResource CheckHover}" 
-                         GroupName="Anime4kGroup" Tag="AA" Click="Preset_Click"/>
-            <!-- B+B -->
-            <RadioButton Grid.Row="2" x:Name="chkBB" Content="B+B" 
-                         Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                         Margin="100,195,0,0" Background="#33808080"
-                         Style="{StaticResource CheckHover}" 
-                         GroupName="Anime4kGroup" Tag="BB" Click="Preset_Click"/>
-            <!-- C+A -->
-            <RadioButton Grid.Row="2" x:Name="chkCA" Content="C+A" 
-                         Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                         Margin="100,230,0,0" Background="#33808080"
-                         Style="{StaticResource CheckHover}" 
-                         GroupName="Anime4kGroup" Tag="CA" Click="Preset_Click"/>
+            <!-- Anime4k Upscale Profiles -->
+            <Grid x:Name="upscaleChks" Grid.Row="2" Visibility="Collapsed">
+                <!-- A -->
+                <RadioButton x:Name="chkA" Content="A" 
+                             Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                             Margin="20,195,0,0" Background="#33808080"
+                             Style="{StaticResource RadioHover}" 
+                             GroupName="Anime4kGroup" Tag="A" Click="Preset_Click"/>
+                <!-- B -->
+                <RadioButton x:Name="chkB" Content="B" 
+                             Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                             Margin="20,230,0,0" Background="#33808080"
+                             Style="{StaticResource RadioHover}" 
+                             GroupName="Anime4kGroup" Tag="B" Click="Preset_Click"/>
+                <!-- C -->
+                <RadioButton x:Name="chkC" Content="C" 
+                             Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                             Margin="20,265,0,0" Background="#33808080"
+                             Style="{StaticResource RadioHover}" 
+                             GroupName="Anime4kGroup" Tag="C" Click="Preset_Click"/>
+                <!-- A+A -->
+                <RadioButton x:Name="chkAA" Content="A+A" 
+                             Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                             Margin="100,195,0,0" Background="#33808080"
+                             Style="{StaticResource RadioHover}" 
+                             GroupName="Anime4kGroup" Tag="AA" Click="Preset_Click"/>
+                <!-- B+B -->
+                <RadioButton x:Name="chkBB" Content="B+B" 
+                             Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                             Margin="100,230,0,0" Background="#33808080"
+                             Style="{StaticResource RadioHover}" 
+                             GroupName="Anime4kGroup" Tag="BB" Click="Preset_Click"/>
+                <!-- C+A -->
+                <RadioButton x:Name="chkCA" Content="C+A" 
+                             Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                             Margin="100,265,0,0" Background="#33808080"
+                             Style="{StaticResource RadioHover}" 
+                             GroupName="Anime4kGroup" Tag="CA" Click="Preset_Click"/>
+                <Rectangle x:Name="blockUpscale" Grid.Row="2" Margin="15,190,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                           Width="135" Height="100" Fill="Transparent" Visibility="Collapsed"/>
+            </Grid>
+            
 
             <!-- Confirm Button -->
             <Button x:Name="btnConfirm" Grid.Row="3" Content="✔️" Width="40" Height="40"
