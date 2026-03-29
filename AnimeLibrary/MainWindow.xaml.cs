@@ -70,6 +70,7 @@ namespace AnimeLibrary
 
         private void btnCloseW_Click(object sender, RoutedEventArgs e)
         {
+            DiscordPresence.ClearDiscord();
             Application.Current.Shutdown();
         }
 

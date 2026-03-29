@@ -43,6 +43,7 @@ namespace AnimeLibrary.View.UserControls
                     LargeImageText = largeImageText,
                     SmallImageKey = smallImageKey
                 },
+                Timestamps = null
             });
         }
     }

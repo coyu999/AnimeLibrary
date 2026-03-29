@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using System.IO.Pipelines;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,8 +14,8 @@ namespace AnimeLibrary.View.UserControls
         public string? Studio { get; private set; }
         public string? Score { get; private set; }
         public string? Image { get; private set; }
-
         public string? AnimeEp { get; private set; }
+
         public static readonly Dictionary<string, string> anime4kOSD = new Dictionary<string, string>
         {
             {"A", "Anime4K: Mode A (HQ)"},
@@ -24,6 +25,7 @@ namespace AnimeLibrary.View.UserControls
             {"BB", "Anime4K: Mode B+B (HQ)"},
             {"CA", "Anime4K: Mode C+A (HQ)"}
         };
+
         public EpisodeCard(string num, string filePath, string? title, string? studio, string? score, string? image)
         {
             InitializeComponent();
