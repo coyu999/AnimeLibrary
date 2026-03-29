@@ -60,7 +60,7 @@ namespace AnimeLibrary.View.UserControls
                     string fileName = Path.GetFileNameWithoutExtension(file);
                     if (Regex.IsMatch(fileName, epPattern))
                     {
-                        string epNum = Regex.Match(fileName, epPattern).Groups[1].Value;
+                        string epNum = int.Parse(Regex.Match(fileName, epPattern).Groups[1].Value).ToString();
                         this.EpisodeCards.Children.Add(new EpisodeCard(epNum, file, this.CardTitle, this.CardStudio, this.CardScore, this.CardImage));
                     } 
                 }
