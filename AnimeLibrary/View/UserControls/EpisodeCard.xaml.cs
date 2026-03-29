@@ -76,18 +76,11 @@ namespace AnimeLibrary.View.UserControls
                 {
                     Application.Current.Dispatcher.Invoke(() =>
                     {
-                        var mainWindow = Application.Current.MainWindow as MainWindow;
-                        if (mainWindow != null)
-                        {
-                            mainWindow.UpdatePresence("Browsing Anime Library", "", "icon", "Anime Library", "");
-                        }
+                        DiscordPresence.UpdatePresence("Browsing Anime Library", "", "icon", "Anime Library", "");
                     });
                 };
-                var mainWindow = Application.Current.MainWindow as MainWindow;
-                if (mainWindow != null)
-                {
-                    mainWindow.UpdatePresence($"Watching {this.Title}", $"Episode {AnimeEp}", $"{this.Image}", $"Watching {this.Title} - Episode {AnimeEp}", "");
-                }
+
+                DiscordPresence.UpdatePresence($"Watching {this.Title}", $"Episode {AnimeEp}", $"{this.Image}", $"Watching {this.Title} - Episode {AnimeEp}", "");
             }
             catch (Exception ex)
             {

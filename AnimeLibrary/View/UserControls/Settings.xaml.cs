@@ -36,7 +36,7 @@ namespace AnimeLibrary.View.UserControls
             {
                 return Directory.Exists(path) && Directory.GetFiles(path).Length > 0;
             }
-            mainWindow.UpdatePresence("Managing Settings", "", "icon", "Anime Library", "settings");
+            DiscordPresence.UpdatePresence("Managing Settings", "", "icon", "Anime Library", "settings");
             string config = File.ReadAllText("config.json");
             using JsonDocument jsonDoc = JsonDocument.Parse(config);
 
@@ -107,13 +107,13 @@ namespace AnimeLibrary.View.UserControls
 
         private void btnCloseS_Click(object sender, RoutedEventArgs e)
         {
-            mainWindow.UpdatePresence("Browsing Anime Library", "", "icon", "Anime Library", "");
+            DiscordPresence.UpdatePresence("Browsing Anime Library", "", "icon", "Anime Library", "");
             Close();
         }
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
-            mainWindow.UpdatePresence("Browsing Anime Library", "", "icon", "Anime Library", "");
+            DiscordPresence.UpdatePresence("Browsing Anime Library", "", "icon", "Anime Library", "");
 
             if (mainWindow != null)
             {
@@ -145,10 +145,10 @@ namespace AnimeLibrary.View.UserControls
 
             if (DiscordRPC)
             {
-                mainWindow.InitializeDiscord();
+                DiscordPresence.InitializeDiscord();
             } else
             {
-                mainWindow.ClearDiscord();
+                DiscordPresence.ClearDiscord();
             }
 
             if (EnglishTitleChanged)

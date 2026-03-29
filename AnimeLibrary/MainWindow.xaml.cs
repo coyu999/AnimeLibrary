@@ -12,7 +12,6 @@ namespace AnimeLibrary
 
     public partial class MainWindow : Window
     {
-        public DiscordRpcClient discordClient;
         public MainWindow()
         {
             InitializeComponent();
@@ -29,7 +28,7 @@ namespace AnimeLibrary
 
             if (discordRPC)
             {
-                InitializeDiscord();
+                DiscordPresence.InitializeDiscord();
             }
 
             string directory = jsonDoc.RootElement.GetProperty("directory").GetString();
@@ -67,47 +66,6 @@ namespace AnimeLibrary
                     btnClearCards.Visibility = Visibility.Visible;
                 }
             }
-        }
-
-        public void InitializeDiscord()
-        {
-            discordClient = new DiscordRpcClient("1487600457667837982");
-
-            discordClient.OnReady += (sender, e) =>
-            {
-                UpdatePresence("Browsing Anime Library", "", "icon", "Anime Library", "");
-            };
-
-
-            discordClient.Initialize();
-        }
-
-        public void ClearDiscord()
-        {
-            if (discordClient != null)
-            {
-                discordClient.ClearPresence();
-                discordClient.Dispose();
-            }
-        }
-
-        public void UpdatePresence(string details, string state, string largeImageKey, string largeImageText, string smallImageKey)
-        {
-            if (discordClient == null) return;
-            discordClient.ClearPresence();
-
-            discordClient.SetPresence(new RichPresence()
-            {
-                Details = details,
-                State = state,
-                Type = ActivityType.Watching,
-                Assets = new Assets()
-                {
-                    LargeImageKey = largeImageKey,
-                    LargeImageText = largeImageText,
-                    SmallImageKey = smallImageKey
-                },
-            });
         }
 
         private void btnCloseW_Click(object sender, RoutedEventArgs e)
