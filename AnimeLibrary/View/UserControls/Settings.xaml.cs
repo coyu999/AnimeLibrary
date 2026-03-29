@@ -2,12 +2,10 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net.NetworkInformation;
-using System.Runtime.InteropServices.JavaScript;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Automation;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -18,6 +16,10 @@ namespace AnimeLibrary.View.UserControls
         public static string? AnimeDirectory { get; set; }
         public static string? Anime4kPreset { get; set; }
         public static bool Anime4kChanged { get; set; } = false;
+        public static bool EnglishTitle { get; set; } = false;
+        public static bool EnglishTitleChanged { get; set; } = false;
+        public static bool DiscordRPC { get; set; } = false;
+        public static bool DiscordRPCChanged { get; set; } = false;
 
         private RadioButton? selectedPresetRadioButton = null;
         private RadioButton? selectedDirRadioButton = null;
@@ -26,6 +28,7 @@ namespace AnimeLibrary.View.UserControls
         public static bool SaveConfig { get; set; }
         public static bool ResetConfig { get; set; }
 
+        public MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
         public Settings()
         {
             InitializeComponent();
@@ -33,12 +36,36 @@ namespace AnimeLibrary.View.UserControls
             {
                 return Directory.Exists(path) && Directory.GetFiles(path).Length > 0;
             }
-
+            mainWindow.UpdatePresence("Managing Settings", "", "icon", "Anime Library", "settings");
             string config = File.ReadAllText("config.json");
             using JsonDocument jsonDoc = JsonDocument.Parse(config);
 
             string directory = jsonDoc.RootElement.GetProperty("directory").GetString();
             string currentUpscale = jsonDoc.RootElement.GetProperty("currentUpscale").GetString();
+
+            if (DiscordRPCChanged)
+            {
+                chkDiscord.IsChecked = DiscordRPC;
+            }
+            else
+            {
+                DiscordRPC = jsonDoc.RootElement.GetProperty("discordRPC").GetBoolean();
+                chkDiscord.IsChecked = DiscordRPC;
+            }
+
+            if (EnglishTitleChanged)
+            {
+                chkEnglishTitle.IsChecked = EnglishTitle;
+                chkEnglishTitle.Checked += chkEnglishTitle_Checked;
+                chkEnglishTitle.Unchecked += chkEnglishTitle_Unchecked;
+            }
+            else
+            {
+                EnglishTitle = jsonDoc.RootElement.GetProperty("englishTitle").GetBoolean();
+                chkEnglishTitle.IsChecked = EnglishTitle;
+                chkEnglishTitle.Checked += chkEnglishTitle_Checked;
+                chkEnglishTitle.Unchecked += chkEnglishTitle_Unchecked;
+            }
 
             if (IsValidDirectory(directory))
             {
@@ -80,13 +107,13 @@ namespace AnimeLibrary.View.UserControls
 
         private void btnCloseS_Click(object sender, RoutedEventArgs e)
         {
+            mainWindow.UpdatePresence("Browsing Anime Library", "", "icon", "Anime Library", "");
             Close();
         }
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
-            
-            var mainWindow = Application.Current.MainWindow as MainWindow;
+            mainWindow.UpdatePresence("Browsing Anime Library", "", "icon", "Anime Library", "");
 
             if (mainWindow != null)
             {
@@ -99,6 +126,8 @@ namespace AnimeLibrary.View.UserControls
                 JsonNode jsonNode = JsonNode.Parse(config);
                 jsonNode["directory"] = AnimeDirectory;
                 jsonNode["currentUpscale"] = Anime4kPreset;
+                jsonNode["discordRPC"] = DiscordRPC;
+                jsonNode["englishTitle"] = EnglishTitle;
 
                 File.WriteAllText("config.json", jsonNode.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
             }
@@ -108,8 +137,24 @@ namespace AnimeLibrary.View.UserControls
                 JsonNode jsonNode = JsonNode.Parse(config);
                 jsonNode["directory"] = "";
                 jsonNode["currentUpscale"] = "";
+                jsonNode["discordRPC"] = false;
+                jsonNode["englishTitle"] = false;
 
                 File.WriteAllText("config.json", jsonNode.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
+            }
+
+            if (DiscordRPC)
+            {
+                mainWindow.InitializeDiscord();
+            } else
+            {
+                mainWindow.ClearDiscord();
+            }
+
+            if (EnglishTitleChanged)
+            {
+                mainWindow.AnimeCards.Children.Clear();
+                _ = mainWindow.LoadCards(animeDir.Keys.ToArray());
             }
 
             Close();
@@ -240,6 +285,30 @@ namespace AnimeLibrary.View.UserControls
                 chkBB.Foreground = Brushes.Gray;
                 chkCA.Foreground = Brushes.Gray;
             }
+        }
+
+        private void chkEnglishTitle_Checked(object sender, RoutedEventArgs e)
+        {
+            EnglishTitle = true;
+            EnglishTitleChanged = true;
+        }
+
+        private void chkEnglishTitle_Unchecked(object sender, RoutedEventArgs e)
+        {
+            EnglishTitle = false;
+            EnglishTitleChanged = true;
+        }
+
+        private void chkDiscord_Unchecked(object sender, RoutedEventArgs e)
+        {
+            DiscordRPC = false;
+            DiscordRPCChanged = true;
+        }
+
+        private void chkDiscord_Checked(object sender, RoutedEventArgs e)
+        {
+            DiscordRPC = true;
+            DiscordRPCChanged = true;
         }
     }
 }

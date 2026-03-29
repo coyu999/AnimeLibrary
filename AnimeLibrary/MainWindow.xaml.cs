@@ -1,18 +1,23 @@
-﻿using AnimeLibrary.View;
-using AnimeLibrary.View.UserControls;
+﻿using AnimeLibrary.View.UserControls;
+using DiscordRPC;
+using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 
 namespace AnimeLibrary
 {
 
     public partial class MainWindow : Window
     {
+        public DiscordRpcClient discordClient;
         public MainWindow()
         {
             InitializeComponent();
+            
+            Settings settings = new Settings();
             bool IsValidDirectory(string path)
             {
                 return Directory.Exists(path) && Directory.GetFiles(path).Length > 0;
@@ -20,12 +25,17 @@ namespace AnimeLibrary
 
             string config = File.ReadAllText("config.json");
             using JsonDocument jsonDoc = JsonDocument.Parse(config);
+            bool discordRPC = jsonDoc.RootElement.GetProperty("discordRPC").GetBoolean();
+
+            if (discordRPC)
+            {
+                InitializeDiscord();
+            }
 
             string directory = jsonDoc.RootElement.GetProperty("directory").GetString();
 
             if (IsValidDirectory(directory))
             {
-                Settings settings = new Settings();
                 settings.OpenDirectory(directory);
                 _ = LoadCards(Settings.animeDir.Keys.ToArray());
             }
@@ -57,6 +67,47 @@ namespace AnimeLibrary
                     btnClearCards.Visibility = Visibility.Visible;
                 }
             }
+        }
+
+        public void InitializeDiscord()
+        {
+            discordClient = new DiscordRpcClient("1487600457667837982");
+
+            discordClient.OnReady += (sender, e) =>
+            {
+                UpdatePresence("Browsing Anime Library", "", "icon", "Anime Library", "");
+            };
+
+
+            discordClient.Initialize();
+        }
+
+        public void ClearDiscord()
+        {
+            if (discordClient != null)
+            {
+                discordClient.ClearPresence();
+                discordClient.Dispose();
+            }
+        }
+
+        public void UpdatePresence(string details, string state, string largeImageKey, string largeImageText, string smallImageKey)
+        {
+            if (discordClient == null) return;
+            discordClient.ClearPresence();
+
+            discordClient.SetPresence(new RichPresence()
+            {
+                Details = details,
+                State = state,
+                Type = ActivityType.Watching,
+                Assets = new Assets()
+                {
+                    LargeImageKey = largeImageKey,
+                    LargeImageText = largeImageText,
+                    SmallImageKey = smallImageKey
+                },
+            });
         }
 
         private void btnCloseW_Click(object sender, RoutedEventArgs e)
@@ -115,6 +166,8 @@ namespace AnimeLibrary
             JsonNode jsonNode = JsonNode.Parse(config);
             jsonNode["directory"] = "";
             jsonNode["currentUpscale"] = "";
+            jsonNode["discordRPC"] = false;
+            jsonNode["englishTitle"] = false;
 
             File.WriteAllText("config.json", jsonNode.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
             Settings.AnimeDirectory = null;

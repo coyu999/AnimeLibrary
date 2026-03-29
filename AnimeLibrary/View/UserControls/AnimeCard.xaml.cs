@@ -1,4 +1,5 @@
 ﻿using HtmlAgilityPack;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -14,6 +15,11 @@ namespace AnimeLibrary.View.UserControls
     public partial class AnimeCard : UserControl
     {
         public string? AnimeId { get; private set; }
+        public string? CardTitle {  get; private set; }
+        public string? CardStudio { get; private set; }
+        public string? CardScore { get; private set; }
+        public string? CardImage { get; private set; }
+
         public static event Action<AnimeCard>? AnyCardClicked;
         public AnimeCard(string? id)
         {
@@ -55,7 +61,7 @@ namespace AnimeLibrary.View.UserControls
                     if (Regex.IsMatch(fileName, epPattern))
                     {
                         string epNum = Regex.Match(fileName, epPattern).Groups[1].Value;
-                        this.EpisodeCards.Children.Add(new EpisodeCard(epNum, file));
+                        this.EpisodeCards.Children.Add(new EpisodeCard(epNum, file, this.CardTitle, this.CardStudio, this.CardScore, this.CardImage));
                     } 
                 }
             }
@@ -114,6 +120,7 @@ namespace AnimeLibrary.View.UserControls
                 HtmlDocument doc = new();
                 doc.LoadHtml(html);
                 var titleNode = doc.DocumentNode.SelectSingleNode("//h1[contains(@class, 'title-name')]/strong");
+                var titleEngNode = doc.DocumentNode.SelectSingleNode("//p[contains(@class, 'title-english')]");
                 var airedNode = doc.DocumentNode.SelectSingleNode("//span[text()='Aired:']/following-sibling::text()");
                 var studioNode = doc.DocumentNode.SelectSingleNode("//span[text()='Studios:']/following-sibling::a");
                 var scoreNode = doc.DocumentNode.SelectSingleNode("//span[@itemprop='ratingValue']");
@@ -124,8 +131,18 @@ namespace AnimeLibrary.View.UserControls
 
                 if (titleNode != null)
                 {
-                    string title = titleNode.InnerText.Trim();
-                    animeTitle.Text = title;
+                    if (Settings.EnglishTitle && titleEngNode != null)
+                    {
+                        string engTitle = WebUtility.HtmlDecode(titleEngNode.InnerText.Trim());
+                        this.CardTitle = engTitle;
+                        animeTitle.Text = engTitle;
+                    } else
+                    {
+                        string title = titleNode.InnerText.Trim();
+                        this.CardTitle = title;
+                        animeTitle.Text = title;
+                    }
+                    
                 }
 
                 if (airedNode != null)
@@ -137,6 +154,7 @@ namespace AnimeLibrary.View.UserControls
                 if (studioNode != null) 
                 {
                     string studio = studioNode.InnerText.Trim();
+                    this.CardStudio = studio;
                     animeStudio.Text = studio;
                 }
 
@@ -147,16 +165,19 @@ namespace AnimeLibrary.View.UserControls
                     if (double.TryParse(score, out double scoreValue))
                     {
                         animeScore.Text = scoreValue.ToString("0.00");
+                        this.CardScore = scoreValue.ToString("0.00");
                     }
                     else 
                     { 
                         animeScore.Text = "N/A"; 
+                        this.CardScore = "N/A";
                     }
                 }
 
                 if (imageNode != null)
                 {
                     string imageUrl = imageNode.GetAttributeValue("data-src", "");
+                    this.CardImage = imageUrl;
                     if (!string.IsNullOrEmpty(imageUrl))
                     {
                         BitmapImage bitmap = new();
