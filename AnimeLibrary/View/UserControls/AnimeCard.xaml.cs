@@ -78,7 +78,8 @@ namespace AnimeLibrary.View.UserControls
                         shadowEffect.BlurRadius = 500;
                     }
                     this.cardDim.Visibility = Visibility.Visible;
-                    this.EpisodeScroll.Visibility = Visibility.Visible;
+                    if (this.EpisodeCards.Children.Count > 0)
+                        this.EpisodeScroll.Visibility = Visibility.Visible;
                     this.SynopsisBox.Visibility = Visibility.Collapsed;
                     this.SynopsisOpen.Visibility = Visibility.Visible;
                     this.SynopsisClose.Visibility = Visibility.Collapsed;

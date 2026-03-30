@@ -1,4 +1,6 @@
 ﻿using DiscordRPC;
+using System.Collections;
+using System.Diagnostics;
 
 namespace AnimeLibrary.View.UserControls
 {
@@ -11,7 +13,7 @@ namespace AnimeLibrary.View.UserControls
 
             discordClient.OnReady += (sender, e) =>
             {
-                UpdatePresence("Browsing Anime Library", "", "icon", "Anime Library", "");
+                UpdatePresence("Browsing Anime Library", "", "icon", "Anime Library", "", null, null);
             };
 
 
@@ -27,12 +29,11 @@ namespace AnimeLibrary.View.UserControls
             }
         }
 
-        public static void UpdatePresence(string details, string state, string largeImageKey, string largeImageText, string smallImageKey)
+        public static void UpdatePresence(string details, string state, string largeImageKey, string largeImageText, string smallImageKey, DateTime? startTime, DateTime? endTime)
         {
             if (discordClient == null) return;
-            discordClient.ClearPresence();
 
-            discordClient.SetPresence(new RichPresence()
+            var presence = new RichPresence()
             {
                 Details = details,
                 State = state,
@@ -43,8 +44,18 @@ namespace AnimeLibrary.View.UserControls
                     LargeImageText = largeImageText,
                     SmallImageKey = smallImageKey
                 },
-                Timestamps = null
-            });
+            };
+
+            if (startTime.HasValue && endTime.HasValue)
+            {
+                presence.Timestamps = new Timestamps()
+                {
+                    Start = startTime,
+                    End = endTime
+                };
+            }
+
+            discordClient.SetPresence(presence);
         }
     }
 }
