@@ -36,7 +36,10 @@ namespace AnimeLibrary.View.UserControls
             {
                 return Directory.Exists(path) && Directory.GetFiles(path).Length > 0;
             }
-            DiscordPresence.UpdatePresence("Managing Settings", "", "icon", "Anime Library", "settings", null, null);
+            if (DiscordRPC == true)
+            {
+                DiscordPresence.UpdatePresence("Managing Settings", "", "icon", "Anime Library", "settings", null, null);
+            }
             string config = File.ReadAllText("config.json");
             using JsonDocument jsonDoc = JsonDocument.Parse(config);
 
@@ -117,6 +120,12 @@ namespace AnimeLibrary.View.UserControls
 
             if (mainWindow != null)
             {
+
+                if (EnglishTitleChanged)
+                {
+                    mainWindow.AnimeCards.Children.Clear();
+                }
+
                 _ = mainWindow.LoadCards(animeDir.Keys.ToArray());
                 mainWindow.cardScroll.ScrollToTop();
             }
@@ -143,18 +152,12 @@ namespace AnimeLibrary.View.UserControls
                 File.WriteAllText("config.json", jsonNode.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
             }
 
-            if (DiscordRPC)
+            if (DiscordRPC == true)
             {
                 DiscordPresence.InitializeDiscord();
             } else
             {
                 DiscordPresence.ClearDiscord();
-            }
-
-            if (EnglishTitleChanged)
-            {
-                mainWindow.AnimeCards.Children.Clear();
-                _ = mainWindow.LoadCards(animeDir.Keys.ToArray());
             }
 
             Close();

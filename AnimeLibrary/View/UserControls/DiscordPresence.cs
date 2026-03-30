@@ -26,6 +26,7 @@ namespace AnimeLibrary.View.UserControls
             {
                 discordClient.ClearPresence();
                 discordClient.Dispose();
+                discordClient = null;
             }
         }
 
