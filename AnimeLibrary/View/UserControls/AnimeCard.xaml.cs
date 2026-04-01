@@ -48,8 +48,7 @@ namespace AnimeLibrary.View.UserControls
         {
             string[] extensions = { ".mp4", ".mkv", ".avi", ".mov" };
             Settings.animeDir.TryGetValue(thisId!, out string? animePath);
-            //string epPattern = @"(?:\s-\s|(?<=\s))(\d+)(?=\s|\[)";
-            string epPattern = @"(?:\s-\s|\s|^)(\d+)(?=\s|\[|$)";
+            string epPattern = @"(?<=\s-\s)(\d+)";
             if (animePath != null)
             {
                 var files = Directory.GetFiles(animePath).Where(file => extensions.Contains(Path.GetExtension(file).ToLower())).ToList();
