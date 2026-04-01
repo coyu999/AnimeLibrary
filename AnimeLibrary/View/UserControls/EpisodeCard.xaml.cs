@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -41,6 +42,7 @@ namespace AnimeLibrary.View.UserControls
 
         private void episodeNum_Click(object sender, RoutedEventArgs e)
         {
+            string epPattern = @"(?:\s-\s|\s|^)(\d+)(?=\s|\[|$)";
             string mpvPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mpv", "mpvnet.exe");
             string shadersPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mpv", "shaders");
             string config = File.ReadAllText("config.json");
@@ -113,12 +115,8 @@ namespace AnimeLibrary.View.UserControls
                             if (!string.IsNullOrEmpty(pbResponse))
                             {
                                 using JsonDocument doc = JsonDocument.Parse(pbResponse);
-
-                                if (doc.RootElement.TryGetProperty("data", out JsonElement dataElement) &&
-                                    dataElement.ValueKind == JsonValueKind.Number)
-                                {
-                                    playbackSeconds = dataElement.GetDouble();
-                                }
+                                if (doc.RootElement.TryGetProperty("data", out JsonElement playbackData))
+                                    playbackSeconds = playbackData.GetDouble();
                             }
 
                             // check duration
@@ -129,26 +127,37 @@ namespace AnimeLibrary.View.UserControls
                             if (!string.IsNullOrEmpty(durResponse))
                             {
                                 using JsonDocument doc = JsonDocument.Parse(durResponse);
+                                if (doc.RootElement.TryGetProperty("data", out JsonElement durationData))
+                                    durationSeconds = durationData.GetDouble();
+                            }
 
-                                if (doc.RootElement.TryGetProperty("data", out JsonElement dataElement) &&
-                                    dataElement.ValueKind == JsonValueKind.Number)
-                                {
-                                    durationSeconds = dataElement.GetDouble();
-                                }
+                            // check episode title for when it automatically goes to the next episode
+                            await writer.WriteLineAsync("{\"command\": [\"get_property\", \"filename\"]}");
+                            string? titleResponse = await reader.ReadLineAsync();
+
+                            string episodeTitle = "";
+                            string episodeNum = "0";
+                            if (!string.IsNullOrEmpty(titleResponse))
+                            {
+                                using JsonDocument doc = JsonDocument.Parse(titleResponse);
+                                if (doc.RootElement.TryGetProperty("data", out JsonElement titleData))
+                                    episodeTitle = Path.GetFileNameWithoutExtension(titleData.GetString()) ?? "";
+                                    episodeNum = int.Parse(Regex.Match(episodeTitle, epPattern).Groups[1].Value).ToString();
+
                             }
 
                             Application.Current.Dispatcher.Invoke(() =>
                             {
                                 if (isPaused)
                                 {
-                                    DiscordPresence.UpdatePresence($"Paused {Title}", $"Episode {AnimeEp}", $"{Image}", $"Paused {Title} - Episode {AnimeEp}", "", null, null);
+                                    DiscordPresence.UpdatePresence($"Paused {Title}", $"Episode {episodeNum}", $"{Image}", $"Paused {Title} - Episode {AnimeEp}", "", null, null);
                                 } else
                                 {
                                     DateTime now = DateTime.UtcNow;
                                     DateTime start = now.AddSeconds(-playbackSeconds);
                                     double remainingSeconds = durationSeconds - playbackSeconds;
                                     DateTime end = now.AddSeconds(remainingSeconds);
-                                    DiscordPresence.UpdatePresence($"Watching {Title}", $"Episode {AnimeEp}", $"{Image}", $"Watching {Title} - Episode {AnimeEp}", "", start, end);
+                                    DiscordPresence.UpdatePresence($"Watching {Title}", $"Episode {episodeNum}", $"{Image}", $"Watching {Title} - Episode {AnimeEp}", "", start, end);
                                 }
                                 
                             });
