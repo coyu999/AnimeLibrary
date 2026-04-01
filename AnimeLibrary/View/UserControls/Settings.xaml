@@ -135,6 +135,13 @@
                          Style="{StaticResource CheckHover}" Checked="chkDiscord_Checked"
                          Unchecked="chkDiscord_Unchecked"/>
 
+            <!-- Hide Window on Episode Run Checkbox -->
+            <CheckBox Grid.Row="2" x:Name="chkHide" Content="Hide When Watching" 
+             Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
+             Margin="160,160,0,0" Background="#33808080"
+             Style="{StaticResource CheckHover}" Checked="chkHide_Checked"
+             Unchecked="chkHide_Unchecked"/>
+
             <!-- Make upscale options visible -->
             <CheckBox Grid.Row="2" x:Name="chkUpscale" Content="Anime4k Upscale" 
                       Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top"

@@ -18,6 +18,8 @@ namespace AnimeLibrary.View.UserControls
         public string? Image { get; private set; }
         public string? AnimeEp { get; private set; }
 
+        public MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+
         public static readonly Dictionary<string, string> anime4kOSD = new Dictionary<string, string>
         {
             {"A", "Anime4K: Mode A (HQ)"},
@@ -77,6 +79,8 @@ namespace AnimeLibrary.View.UserControls
             {
                 Process process = Process.Start(startInfo);
                 process.EnableRaisingEvents = true;
+                if (Settings.HideOnRun)
+                    mainWindow.Visibility = Visibility.Hidden;
 
                 _ = Task.Run(async () =>
                 {
@@ -174,6 +178,8 @@ namespace AnimeLibrary.View.UserControls
                 {
                     Application.Current.Dispatcher.Invoke(() =>
                     {
+                        if (Settings.HideOnRun)
+                            mainWindow.Visibility = Visibility.Visible;
                         DiscordPresence.UpdatePresence("Browsing Anime Library", "", "icon", "Anime Library", "", null, null);
                     });
                 };

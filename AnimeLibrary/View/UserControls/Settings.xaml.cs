@@ -17,7 +17,8 @@ namespace AnimeLibrary.View.UserControls
         public static string? Anime4kPreset { get; set; }
         public static bool Anime4kChanged { get; set; } = false;
         public static bool EnglishTitle { get; set; } = false;
-        public static bool EnglishTitleChanged { get; set; } = false;
+        private static bool EnglishTitleChanged { get; set; } = false;
+        private bool EnglishTitleChangedThisSession { get; set; } = false;
         public static bool DiscordRPC { get; set; } = false;
         public static bool DiscordRPCChanged { get; set; } = false;
 
@@ -27,6 +28,8 @@ namespace AnimeLibrary.View.UserControls
         public static Dictionary<string, string> animeDir = new Dictionary<string, string>();
         public static bool SaveConfig { get; set; }
         public static bool ResetConfig { get; set; }
+        public static bool HideOnRun { get; set; }
+        public static bool HideOnRunChanged { get; set; } = false;
 
         public MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
         public Settings()
@@ -46,6 +49,7 @@ namespace AnimeLibrary.View.UserControls
             string directory = jsonDoc.RootElement.GetProperty("directory").GetString();
             string currentUpscale = jsonDoc.RootElement.GetProperty("currentUpscale").GetString();
 
+            // Load Discord RPC setting
             if (DiscordRPCChanged)
             {
                 chkDiscord.IsChecked = DiscordRPC;
@@ -56,6 +60,7 @@ namespace AnimeLibrary.View.UserControls
                 chkDiscord.IsChecked = DiscordRPC;
             }
 
+            // Load English Titles setting
             if (EnglishTitleChanged)
             {
                 chkEnglishTitle.IsChecked = EnglishTitle;
@@ -70,11 +75,28 @@ namespace AnimeLibrary.View.UserControls
                 chkEnglishTitle.Unchecked += chkEnglishTitle_Unchecked;
             }
 
+            // Load Hide on Run setting
+            if (HideOnRunChanged)
+            {
+                chkHide.IsChecked = HideOnRun;
+                chkHide.Checked += chkHide_Checked;
+                chkHide.Unchecked += chkHide_Unchecked;
+            }
+            else
+            {
+                HideOnRun = jsonDoc.RootElement.GetProperty("hideOnRun").GetBoolean();
+                chkHide.IsChecked = HideOnRun;
+                chkHide.Checked += chkHide_Checked;
+                chkHide.Unchecked += chkHide_Unchecked;
+            }
+
+            // Load Directory setting
             if (IsValidDirectory(directory))
             {
                 AnimeDirectory = directory;
             }
 
+            // Load Anime4K preset setting
             if (!string.IsNullOrEmpty(currentUpscale))
             {
                 if (Anime4kChanged == false)
@@ -83,7 +105,6 @@ namespace AnimeLibrary.View.UserControls
                 }
                 
             }
-
             if (!string.IsNullOrEmpty(Anime4kPreset))
             {
                 var radioButtons = new[] { chkA, chkB, chkC, chkAA, chkBB, chkCA };
@@ -121,7 +142,7 @@ namespace AnimeLibrary.View.UserControls
             if (mainWindow != null)
             {
 
-                if (EnglishTitleChanged)
+                if (EnglishTitleChanged && EnglishTitleChangedThisSession)
                 {
                     mainWindow.AnimeCards.Children.Clear();
                 }
@@ -129,6 +150,7 @@ namespace AnimeLibrary.View.UserControls
                 _ = mainWindow.LoadCards(animeDir.Keys.ToArray());
                 mainWindow.cardScroll.ScrollToTop();
             }
+
             if (SaveConfig)
             {
                 string config = File.ReadAllText("config.json");
@@ -294,12 +316,14 @@ namespace AnimeLibrary.View.UserControls
         {
             EnglishTitle = true;
             EnglishTitleChanged = true;
+            EnglishTitleChangedThisSession = true;
         }
 
         private void chkEnglishTitle_Unchecked(object sender, RoutedEventArgs e)
         {
             EnglishTitle = false;
             EnglishTitleChanged = true;
+            EnglishTitleChangedThisSession = true;
         }
 
         private void chkDiscord_Unchecked(object sender, RoutedEventArgs e)
@@ -312,6 +336,18 @@ namespace AnimeLibrary.View.UserControls
         {
             DiscordRPC = true;
             DiscordRPCChanged = true;
+        }
+
+        private void chkHide_Unchecked(object sender, RoutedEventArgs e)
+        {
+            HideOnRun = false;
+            HideOnRunChanged = true;
+        }
+
+        private void chkHide_Checked(object sender, RoutedEventArgs e)
+        {
+            HideOnRun = true;
+            HideOnRunChanged = true;
         }
     }
 }
