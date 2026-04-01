@@ -44,7 +44,6 @@ namespace AnimeLibrary.View.UserControls
 
         private void episodeNum_Click(object sender, RoutedEventArgs e)
         {
-            string epPattern = @"(?:\s-\s|\s|^)(\d+)(?=\s|\[|$)";
             string mpvPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mpv", "mpvnet.exe");
             string shadersPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "mpv", "shaders");
             string config = File.ReadAllText("config.json");
@@ -141,6 +140,7 @@ namespace AnimeLibrary.View.UserControls
 
                             string episodeTitle = "";
                             string episodeNum = "0";
+                            string epPattern = @"(?<=\s-\s)(\d+)";
                             if (!string.IsNullOrEmpty(titleResponse))
                             {
                                 using JsonDocument doc = JsonDocument.Parse(titleResponse);
