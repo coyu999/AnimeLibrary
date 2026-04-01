@@ -127,6 +127,7 @@ namespace AnimeLibrary
             jsonNode["currentUpscale"] = "";
             jsonNode["discordRPC"] = false;
             jsonNode["englishTitle"] = false;
+            jsonNode["hideOnRun"] = false;
 
             File.WriteAllText("config.json", jsonNode.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
             Settings.AnimeDirectory = null;

@@ -159,6 +159,7 @@ namespace AnimeLibrary.View.UserControls
                 jsonNode["currentUpscale"] = Anime4kPreset;
                 jsonNode["discordRPC"] = DiscordRPC;
                 jsonNode["englishTitle"] = EnglishTitle;
+                jsonNode["hideOnRun"] = HideOnRun;
 
                 File.WriteAllText("config.json", jsonNode.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
             }
@@ -170,6 +171,7 @@ namespace AnimeLibrary.View.UserControls
                 jsonNode["currentUpscale"] = "";
                 jsonNode["discordRPC"] = false;
                 jsonNode["englishTitle"] = false;
+                jsonNode["hideOnRun"] = false;
 
                 File.WriteAllText("config.json", jsonNode.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
             }
