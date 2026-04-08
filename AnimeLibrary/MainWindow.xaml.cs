@@ -133,6 +133,7 @@ namespace AnimeLibrary
             Settings.AnimeDirectory = null;
             Settings.Anime4kPreset = null;
             Settings.animeDir.Clear();
+            tbSearch.Input.Text = "";
         }
     }
 }

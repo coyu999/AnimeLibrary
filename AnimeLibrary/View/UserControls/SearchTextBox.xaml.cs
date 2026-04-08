@@ -7,6 +7,8 @@ namespace AnimeLibrary.View.UserControls
 {
     public partial class SearchTextBox : UserControl, INotifyPropertyChanged
     {
+        public TextBox Input => txtInput;
+
         public SearchTextBox()
         {
             DataContext = this;

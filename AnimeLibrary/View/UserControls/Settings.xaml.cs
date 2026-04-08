@@ -32,6 +32,7 @@ namespace AnimeLibrary.View.UserControls
         public static bool HideOnRunChanged { get; set; } = false;
 
         public MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+        public static string config { get; set; } = "";
         public Settings()
         {
             InitializeComponent();
@@ -43,7 +44,13 @@ namespace AnimeLibrary.View.UserControls
             {
                 DiscordPresence.UpdatePresence("Managing Settings", "", "icon", "Anime Library", "settings", null, null);
             }
-            string config = File.ReadAllText("config.json");
+
+            if (!File.Exists("config.json"))
+            {
+                CreateConfig.CreateConfigFile();
+            }
+
+            config = File.ReadAllText("config.json");
             using JsonDocument jsonDoc = JsonDocument.Parse(config);
 
             string directory = jsonDoc.RootElement.GetProperty("directory").GetString();
@@ -153,7 +160,6 @@ namespace AnimeLibrary.View.UserControls
 
             if (SaveConfig)
             {
-                string config = File.ReadAllText("config.json");
                 JsonNode jsonNode = JsonNode.Parse(config);
                 jsonNode["directory"] = AnimeDirectory;
                 jsonNode["currentUpscale"] = Anime4kPreset;
@@ -165,7 +171,6 @@ namespace AnimeLibrary.View.UserControls
             }
             if (ResetConfig)
             {
-                string config = File.ReadAllText("config.json");
                 JsonNode jsonNode = JsonNode.Parse(config);
                 jsonNode["directory"] = "";
                 jsonNode["currentUpscale"] = "";
