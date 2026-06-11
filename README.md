@@ -38,3 +38,13 @@ Also integrates [Anime4k](https://github.com/bloc97/Anime4K) Upscaling as an opt
 - HtmlAgilityPack – For parsing MyAnimeList metadata.
 - System.Net.Http – For handling web requests.
 - mpvnet – Required for video playback
+
+---
+
+## 🖥️ Demonstration
+
+
+https://github.com/user-attachments/assets/256840a7-3999-40bf-af24-7b99017bf7d4
+
+
+
