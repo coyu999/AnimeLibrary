@@ -131,8 +131,11 @@ namespace AnimeLibrary
 
             File.WriteAllText("config.json", jsonNode.ToJsonString(new JsonSerializerOptions { WriteIndented = true }));
             Settings.AnimeDirectory = null;
-            Settings.Anime4kPreset = null;
             Settings.animeDir.Clear();
+            Settings.Anime4kPreset = null;
+            Settings.DiscordRPC = false;
+            Settings.EnglishTitle = false;
+            Settings.HideOnRun = false;
             tbSearch.Input.Text = "";
         }
     }
