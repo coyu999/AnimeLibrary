@@ -1,4 +1,4 @@
-﻿using AnimeLibrary.View.UserControls;
+﻿using AniDex.View.UserControls;
 using DiscordRPC;
 using System.Diagnostics;
 using System.IO;
@@ -7,7 +7,7 @@ using System.Text.Json.Nodes;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 
-namespace AnimeLibrary
+namespace AniDex
 {
 
     public partial class MainWindow : Window

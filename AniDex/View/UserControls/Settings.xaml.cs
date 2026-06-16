@@ -9,7 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace AnimeLibrary.View.UserControls
+namespace AniDex.View.UserControls
 {
     public partial class Settings : Window
     {
@@ -42,7 +42,7 @@ namespace AnimeLibrary.View.UserControls
             }
             if (DiscordRPC == true)
             {
-                DiscordPresence.UpdatePresence("Managing Settings", "", "icon", "Anime Library", "settings", null, null);
+                DiscordPresence.UpdatePresence("Managing Settings", "", "icon", "AniDex", "settings", null, null);
             }
 
             if (!File.Exists("config.json"))
@@ -138,13 +138,13 @@ namespace AnimeLibrary.View.UserControls
 
         private void btnCloseS_Click(object sender, RoutedEventArgs e)
         {
-            DiscordPresence.UpdatePresence("Browsing Anime Library", "", "icon", "Anime Library", "", null, null);
+            DiscordPresence.UpdatePresence("Browsing AniDex", "", "icon", "AniDex", "", null, null);
             Close();
         }
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
-            DiscordPresence.UpdatePresence("Browsing Anime Library", "", "icon", "Anime Library", "", null, null);
+            DiscordPresence.UpdatePresence("Browsing AniDex", "", "icon", "AniDex", "", null, null);
 
             if (mainWindow != null)
             {

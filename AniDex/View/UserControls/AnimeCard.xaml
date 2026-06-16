@@ -1,7 +1,7 @@
-﻿<UserControl x:Class="AnimeLibrary.View.UserControls.AnimeCard"
+﻿<UserControl x:Class="AniDex.View.UserControls.AnimeCard"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:uc="clr-namespace:AnimeLibrary.View.UserControls"
+             xmlns:uc="clr-namespace:AniDex.View.UserControls"
              MinHeight="300" MinWidth="200"
              MaxHeight="450" MaxWidth="300">
     <!-- Styles -->

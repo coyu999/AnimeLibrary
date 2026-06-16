@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Diagnostics;
 
-namespace AnimeLibrary.View.UserControls
+namespace AniDex.View.UserControls
 {
     public class DiscordPresence
     {
@@ -13,7 +13,7 @@ namespace AnimeLibrary.View.UserControls
 
             discordClient.OnReady += (sender, e) =>
             {
-                UpdatePresence("Browsing Anime Library", "", "icon", "Anime Library", "", null, null);
+                UpdatePresence("Browsing AniDex", "", "icon", "AniDex", "", null, null);
             };
 
 

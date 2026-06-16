@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace AnimeLibrary
+namespace AniDex
 {
     /// <summary>
     /// Interaction logic for App.xaml

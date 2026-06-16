@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Text.Json;
 
-namespace AnimeLibrary.View.UserControls
+namespace AniDex.View.UserControls
 {
     public class CreateConfig
     {

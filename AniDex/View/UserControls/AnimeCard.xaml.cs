@@ -10,7 +10,7 @@ using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 
 
-namespace AnimeLibrary.View.UserControls
+namespace AniDex.View.UserControls
 {
     public partial class AnimeCard : UserControl
     {

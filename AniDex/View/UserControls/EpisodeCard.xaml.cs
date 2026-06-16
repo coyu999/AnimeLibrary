@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace AnimeLibrary.View.UserControls
+namespace AniDex.View.UserControls
 {
     public partial class EpisodeCard : UserControl
     {
@@ -180,7 +180,7 @@ namespace AnimeLibrary.View.UserControls
                     {
                         if (Settings.HideOnRun)
                             mainWindow.Visibility = Visibility.Visible;
-                        DiscordPresence.UpdatePresence("Browsing Anime Library", "", "icon", "Anime Library", "", null, null);
+                        DiscordPresence.UpdatePresence("Browsing AniDex", "", "icon", "AniDex", "", null, null);
                     });
                 };
             }

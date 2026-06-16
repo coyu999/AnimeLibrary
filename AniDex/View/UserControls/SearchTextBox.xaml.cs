@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace AnimeLibrary.View.UserControls
+namespace AniDex.View.UserControls
 {
     public partial class SearchTextBox : UserControl, INotifyPropertyChanged
     {

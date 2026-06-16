@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="AnimeLibrary.View.UserControls.SearchTextBox"
+﻿<UserControl x:Class="AniDex.View.UserControls.SearchTextBox"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:AnimeLibrary.View.UserControls"
+             xmlns:local="clr-namespace:AniDex.View.UserControls"
              mc:Ignorable="d" 
              Height="30" Width="150">
     <Border CornerRadius="15" BorderThickness="1" BorderBrush="#CED5D8" Background="Transparent">

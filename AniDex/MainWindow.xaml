@@ -1,13 +1,13 @@
-﻿<Window x:Class="AnimeLibrary.MainWindow"
+﻿<Window x:Class="AniDex.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AnimeLibrary"
+        xmlns:local="clr-namespace:AniDex"
         xmlns:svg="http://sharpvectors.codeplex.com/svgc/"
-        xmlns:uc="clr-namespace:AnimeLibrary.View.UserControls"
+        xmlns:uc="clr-namespace:AniDex.View.UserControls"
         mc:Ignorable="d" WindowStyle="None"
-        Title="Anime Library"
+        Title="AniDex"
         MinHeight="800" MinWidth="1325"
         Height="800" Width="1325" Icon="pack://application:,,,/View/Assets/icon.ico">
     <WindowChrome.WindowChrome>
@@ -49,7 +49,7 @@
                 <ColumnDefinition Width="165"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Text="🌸 Anime Library 📚" VerticalAlignment="Center" 
+            <TextBlock Text="🌸 AniDex 📚" VerticalAlignment="Center" 
                HorizontalAlignment="Center" Grid.ColumnSpan="3"
                FontSize="14" Foreground="White" Height="19" Width="130"/>
 
